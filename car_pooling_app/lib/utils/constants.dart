@@ -1,7 +1,8 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import "package:latlong2/latlong.dart";
 
-const String apiUrlLocal = "http://10.0.2.2:8080/";
+// const String apiUrlLocal = "http://10.0.2.2:8080/";
+const String apiUrlLocal = "https://car-pooling.fly.dev/";
 
 LatLng newDelhi = LatLng(28.61992743538245, 77.20905101733563);
 
