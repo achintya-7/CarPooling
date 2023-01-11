@@ -1,6 +1,7 @@
 package api
 
 import (
+	"errors"
 	"net/http"
 
 	"github.com/achintya-7/car_pooling_backend/models"
@@ -32,10 +33,10 @@ func (server *Server) getNotification(c *gin.Context) {
 	}
 
 	if len(resp) == 0 {
+		err := errors.New("0 notifications")
 		c.JSON(http.StatusNoContent, errorResponse(err))
 		return
 	}
-
 
 	c.JSON(http.StatusOK, resp)
 
