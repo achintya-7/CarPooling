@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:car_pooling_app/feature/history/controller/driver_history_controller.dart';
 import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
@@ -18,14 +17,12 @@ class RideHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Card(
         color: ride.complete ? Colors.green[100] : Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
-        
         ),
         child: Theme(
           data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
@@ -82,20 +79,35 @@ class RideHistoryWidget extends StatelessWidget {
                 const SizedBox(height: 4),
               ],
             ),
-            trailing: ride.complete ? null :  PopUpWidget(historyController: historyController, ride: ride),
+            trailing: ride.complete
+                ? null
+                : PopUpWidget(historyController: historyController, ride: ride),
             children: ride.passengers.map((p) {
               return ListTile(
                 title: Text(
                   p.name,
-                  style: const TextStyle(color: Colors.black, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.w500),
                 ),
                 subtitle: Text(
                   p.phone,
                   style: const TextStyle(color: Colors.black87),
                 ),
                 trailing: p.email == ride.email
-                    ? const Icon(Icons.local_taxi)
-                    : const Icon(Icons.person),
+                    ? Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.local_taxi),
+                          if (p.email != AuthService().getCurrentUser()?.email)
+                            IconButton(onPressed: () {}, icon: const Icon(Icons.chat))
+                          else
+                            const SizedBox.shrink(),
+                        ],
+                      )
+                    : (p.email != AuthService().getCurrentUser()?.email)
+                        ? IconButton(
+                            onPressed: () {}, icon: const Icon(Icons.chat))
+                        : const Icon(Icons.person),
               );
             }).toList(),
           ),
@@ -193,6 +205,3 @@ class PopUpWidget extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -16,8 +16,6 @@ class CreatePassengerController extends GetxController {
       String city, String state, String pincode, String firebaseId) async {
     showLoading();
 
-    String url = "$apiUrlLocal/passengers";
-
     Map<String, dynamic> body = {
       'name': name,
       'phone': phone,
@@ -29,15 +27,19 @@ class CreatePassengerController extends GetxController {
       'firebase_id': firebaseId,
     };
 
-    HttpObject httpObject = await HttpService.postRequest(url, body);
+    HttpObject httpObject = await HttpService.postRequest("passengers", body);
 
     if (httpObject.statusCode == 200) {
       try {
         passenger = Passenger.fromJson(httpObject.body);
-        SecureStorageService.write(passenger.token);
+        await SecureStorageService.delete();
+        await SecureStorageService.write(passenger.token);
+        Get.toNamed("/home");
       } on Exception catch (e) {
         print(e);
       }
+    } else if (httpObject.statusCode == 400) {
+      errorToast("Email or Phone already exists");
     } else {
       Fluttertoast.showToast(
           msg: "Something went wrong",

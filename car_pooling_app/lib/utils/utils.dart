@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -14,8 +13,8 @@ class SecureStorageService {
     return await _storage.read(key: "token");
   }
 
-  static Future<void> delete(String key) async {
-    await _storage.delete(key: key);
+  static Future<void> delete() async {
+    await _storage.delete(key: "token");
   }
 }
 

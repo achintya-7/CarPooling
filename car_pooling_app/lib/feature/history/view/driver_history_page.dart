@@ -1,11 +1,10 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:car_pooling_app/feature/history/controller/driver_history_controller.dart';
 import 'package:car_pooling_app/feature/history/widgets/driver_history_widget.dart';
-import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:car_pooling_app/utils/utils.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class DriverHistoryPage extends StatelessWidget {
@@ -55,7 +54,11 @@ class DriverHistoryPage extends StatelessWidget {
             );
           }
 
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: SpinKitCubeGrid(
+              color: Colors.grey,
+            ),
+          );
         },
       ),
     );

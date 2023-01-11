@@ -49,6 +49,27 @@ class CustomDrawer2 extends StatelessWidget {
               text: "Profile", route: '/drivers/profile', icon: Icons.person),
           const DrawerListTile(
               text: "History", route: '/drivers/history', icon: Icons.history),
+
+          const Spacer(),
+
+          ListTile(
+            leading: NeumorphicIcon(
+              style: NeumorphicStyle(
+                color: Colors.grey[700],
+              ),
+              Icons.logout,
+              size: 30,
+            ),
+            title: const Text(
+              "Logout",
+              style: TextStyle(fontSize: 15),
+            ),
+            onTap: () {
+              Get.offAllNamed('/login');
+              AuthService().signOut();
+            },
+          ),
+
         ],
       ),
     );

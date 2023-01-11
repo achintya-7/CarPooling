@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -7,6 +8,7 @@ class CustomTextField extends StatelessWidget {
     required this.hintText,
     this.keyboardTextType,
     this.initialText,
+    this.size,
   })  : _textController = textController,
         super(key: key);
 
@@ -14,6 +16,7 @@ class CustomTextField extends StatelessWidget {
   final String hintText;
   final TextInputType? keyboardTextType;
   final String? initialText;
+  final int? size;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +26,13 @@ class CustomTextField extends StatelessWidget {
       style: NeumorphicStyle(depth: NeumorphicTheme.embossDepth(context)),
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
       child: TextField(
+        inputFormatters: [
+          if (size != null) 
+            LengthLimitingTextInputFormatter(size),
+            
+          if (keyboardTextType == TextInputType.number)
+            FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+        ],
         controller: _textController,
         keyboardType: keyboardTextType ?? TextInputType.text,
         decoration: InputDecoration.collapsed(

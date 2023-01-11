@@ -31,6 +31,7 @@ class PassengerInfoFormPage extends StatelessWidget {
           children: [
             CustomTextField(textController: _nameController, hintText: 'Name'),
             CustomTextField(
+                size: 10,
                 textController: _phoneController,
                 hintText: 'Phone',
                 keyboardTextType: TextInputType.phone),
@@ -42,6 +43,7 @@ class PassengerInfoFormPage extends StatelessWidget {
             CustomTextField(
                 textController: _pincodeController,
                 hintText: 'Pincode',
+                size: 6,
                 keyboardTextType: TextInputType.number),
             const SizedBox(
               height: 20,

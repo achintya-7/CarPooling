@@ -3,6 +3,7 @@ import 'package:car_pooling_app/model/Passenger/passenger_model.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_text_field.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
@@ -86,7 +87,7 @@ class UpdateProfilePage extends StatelessWidget {
                 child: const Text("Update"),
               ),
               updateProfileController.loading.value
-                  ? const CircularProgressIndicator()
+                  ? const SpinKitCubeGrid(color: Colors.grey)
                   : const SizedBox(),
             ],
           ),

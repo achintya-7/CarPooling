@@ -5,6 +5,7 @@ import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/google_user_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class PassengersInfo extends StatelessWidget {
@@ -37,7 +38,11 @@ class PassengersInfo extends StatelessWidget {
             );
           }
 
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: SpinKitCubeGrid(
+              color: Colors.grey,
+            ),
+          );
         },
       ),
     );

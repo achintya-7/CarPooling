@@ -2,6 +2,7 @@ import 'package:car_pooling_app/feature/notifications/controllers/notification_c
 import 'package:car_pooling_app/model/notification/notification_model.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class NotificationPage extends StatelessWidget {
@@ -18,6 +19,13 @@ class NotificationPage extends StatelessWidget {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             List<NotificationModel> notifications = snapshot.data;
+
+            if (notifications.isEmpty) {
+              return const Center(
+                child: Text("No Notifications"),
+              );
+            }
+
             return ListView.builder(
               itemCount: notifications.length,
               itemBuilder: (BuildContext context, int index) {
@@ -36,7 +44,7 @@ class NotificationPage extends StatelessWidget {
           }
 
           return const Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitCubeGrid(color: Colors.grey),
           );
         },
       ),

@@ -3,6 +3,7 @@ import 'package:car_pooling_app/feature/history/widgets/passenger_history_widget
 import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class PassengerHistoryPage extends StatelessWidget {
@@ -47,7 +48,7 @@ class PassengerHistoryPage extends StatelessWidget {
             );
           }
 
-          return const Center(child: CircularProgressIndicator());
+          return const Center(child: SpinKitCubeGrid(color: Colors.grey));
         },
       ),
   
