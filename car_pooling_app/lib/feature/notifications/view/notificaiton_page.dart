@@ -1,0 +1,77 @@
+import 'package:car_pooling_app/feature/notifications/controllers/notification_controller.dart';
+import 'package:car_pooling_app/model/notification/notification_model.dart';
+import 'package:car_pooling_app/widgets/custom_appbar.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
+
+class NotificationPage extends StatelessWidget {
+  const NotificationPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final notificationController = Get.find<NotificationController>();
+
+    return Scaffold(
+      appBar: customAppBar(title: "Notification"),
+      body: FutureBuilder<List<NotificationModel>>(
+        future: notificationController.getNotifications(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          if (snapshot.hasData) {
+            List<NotificationModel> notifications = snapshot.data;
+            return ListView.builder(
+              itemCount: notifications.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 6.0, horizontal: 16.0),
+                  child: CustomNotificationListTile(
+                      notifications: notifications[index]),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return const Center(
+              child: Text("No Notifications"),
+            );
+          }
+
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CustomNotificationListTile extends StatelessWidget {
+  const CustomNotificationListTile({
+    Key? key,
+    required this.notifications,
+  }) : super(key: key);
+
+  final NotificationModel notifications;
+
+  @override
+  Widget build(BuildContext context) {
+    return Neumorphic(
+      style: NeumorphicStyle(
+        color: notifications.type == 3
+            ? Colors.redAccent[100]
+            : notifications.type == 1
+                ? Colors.greenAccent[100]
+                : Colors.grey[300],
+        intensity: 1,
+        depth: 2,
+        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
+      ),
+      child: ListTile(
+        title: Text(notifications.content),
+        subtitle: Text(
+          notifications.timestamp.toString(),
+          style: const TextStyle(color: Colors.black),
+        ),
+      ),
+    );
+  }
+}
