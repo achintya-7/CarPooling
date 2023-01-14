@@ -18,8 +18,7 @@ class NotificationController extends GetxController {
           .map((e) => NotificationModel.fromJson(e))
           .toList();
     } else if (httpObject.statusCode == 204) {
-      Fluttertoast.showToast(
-          msg: "No notifications were found", fontSize: 16.0);
+      notifications = [];
     } else {
       Fluttertoast.showToast(
           msg: "There was an error while fetching notifications",

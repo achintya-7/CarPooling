@@ -14,6 +14,7 @@ class NotificationPage extends StatelessWidget {
 
     return Scaffold(
       appBar: customAppBar(title: "Notification"),
+
       body: FutureBuilder<List<NotificationModel>>(
         future: notificationController.getNotifications(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {

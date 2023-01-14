@@ -114,8 +114,7 @@ class DriverMapPage extends StatelessWidget {
                   ),
                   children: [
                     TileLayer(
-                      urlTemplate:
-                          "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                      urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                       subdomains: const ['a', 'b', 'c'],
                     ),
                   ],
@@ -159,6 +158,11 @@ class DriverMapPage extends StatelessWidget {
               )
             ),
             btnOkOnPress: () {
+              if (priceController.text.isEmpty) {
+                errorToast("Please enter price");
+                return;
+              }
+
               DatePicker.showDateTimePicker(
                 context,
                 showTitleActions: true,

@@ -1,4 +1,3 @@
-import 'package:car_pooling_app/feature/home/view/home_page.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 
@@ -10,7 +9,6 @@ class DriverToPassenger extends StatefulWidget {
 }
 
 class _DriverToPassengerState extends State<DriverToPassenger> {
-
   @override
   void initState() {
     super.initState();
@@ -19,7 +17,7 @@ class _DriverToPassengerState extends State<DriverToPassenger> {
 
   loadingFunction() async {
     await Future.delayed(const Duration(milliseconds: 500));
-    Get.off(() => const HomePage());
+    Get.offNamed('/home');
   }
 
   @override

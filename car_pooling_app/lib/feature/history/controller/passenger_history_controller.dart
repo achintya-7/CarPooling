@@ -13,7 +13,7 @@ class PassengerHistoryController extends GetxController {
     if (response.statusCode == 200) {
       rides.value = (response.body as List).map((e) => Ride.fromJson(e)).toList();
     } else if (response.statusCode == 404) {
-      neutralToast("No rides found");
+      rides.value = [];
     } else {
       errorToast("Something went wrong");
     }
@@ -33,6 +33,6 @@ class PassengerHistoryController extends GetxController {
   
   updateFrontEnd(Ride ride) {
     rides.remove(ride);
-    neutralToast("Ride cancelled");
+    neutralBox("Ride cancelled");
   } 
 }

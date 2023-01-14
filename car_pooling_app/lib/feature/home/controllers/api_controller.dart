@@ -16,18 +16,9 @@ class ApiController extends GetxController {
     searchToggle.value = !searchToggle.value;
   }
 
-  Future<bool> prevRideCheck(bool driver) async {
-    final response = await HttpService.getRequest("rides/driver");
-    if (response.statusCode == 200) {
-      driver ? neutralToast("Please Delete or Complete your current ride") : neutralToast("You already have a ride");
-      return false;
-    } else if (response.statusCode == 204) {
-      return true;
-    } else {
-      errorToast("Something went wrong");
-      return false;
-    }
-  }
+  
+
+  
 
   Future<List<PlacePredictionModel>> getPredictions(String input) async {
     if (input.isEmpty) return [];

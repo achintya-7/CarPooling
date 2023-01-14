@@ -4,11 +4,14 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer2 extends StatelessWidget {
-  const CustomDrawer2({super.key});
+  const CustomDrawer2({super.key, required this.drawerKey});
+
+  final GlobalKey<ScaffoldState> drawerKey;
 
   @override
   Widget build(BuildContext context) {
     User? user = AuthService().getCurrentUser();
+
     return Drawer(
       width: 280,
       child: Column(
@@ -31,7 +34,7 @@ class CustomDrawer2 extends StatelessWidget {
           ),
           ListTile(
             leading: NeumorphicIcon(
-                style: NeumorphicStyle(
+              style: NeumorphicStyle(
                 color: Colors.grey[700],
               ),
               Icons.home,
@@ -42,16 +45,14 @@ class CustomDrawer2 extends StatelessWidget {
               style: TextStyle(fontSize: 15),
             ),
             onTap: () {
-              Get.back();
+              drawerKey.currentState!.closeDrawer();
             },
           ),
-          const DrawerListTile(
-              text: "Profile", route: '/drivers/profile', icon: Icons.person),
-          const DrawerListTile(
-              text: "History", route: '/drivers/history', icon: Icons.history),
-
+          DrawerListTile(
+              text: "Profile", route: '/drivers/profile', icon: Icons.person, drawerKey: drawerKey),
+          DrawerListTile(
+              text: "History", route: '/drivers/history', icon: Icons.history, drawerKey: drawerKey),
           const Spacer(),
-
           ListTile(
             leading: NeumorphicIcon(
               style: NeumorphicStyle(
@@ -69,7 +70,6 @@ class CustomDrawer2 extends StatelessWidget {
               AuthService().signOut();
             },
           ),
-
         ],
       ),
     );
@@ -82,11 +82,14 @@ class DrawerListTile extends StatelessWidget {
     required this.text,
     required this.route,
     required this.icon,
+    required this.drawerKey,
+
   }) : super(key: key);
 
   final String text;
   final IconData icon;
   final String route;
+  final GlobalKey<ScaffoldState> drawerKey;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +106,9 @@ class DrawerListTile extends StatelessWidget {
         style: const TextStyle(fontSize: 15),
       ),
       onTap: () {
-        Get.back();
+        if (drawerKey.currentState!.isDrawerOpen) {
+          drawerKey.currentState!.closeDrawer();
+        }
         Get.toNamed(route);
       },
     );

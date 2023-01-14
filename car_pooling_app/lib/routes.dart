@@ -65,20 +65,14 @@ List<GetPage<dynamic>> getPages = [
   GetPage(
     name: '/drivers/home',
     page: () => const DriverApp(),
+    binding: HomeBindings(),
   ),
   GetPage(
     name: '/drivers/profile',
     page: () => DriverInfoPage(),
     binding: ProfileBinding(),
   ),
-  GetPage(
-      name: '/PtoD',
-      page: () => const PassengerToDriver(),
-      binding: GetDriverBindings()),
-  GetPage(
-    name: '/DtoP',
-    page: () => const DriverToPassenger(),
-  ),
+  
   GetPage(
     name: "/drivers/route",
     page: () => DriverMapPage(),
@@ -88,5 +82,15 @@ List<GetPage<dynamic>> getPages = [
     name: '/drivers/history',
     page: () => DriverHistoryPage(),
     binding: HistoryBinding(),
+  ),
+
+  // * Splash
+  GetPage(
+      name: '/PtoD',
+      page: () => const PassengerToDriver(),
+      binding: GetDriverBindings()),
+  GetPage(
+    name: '/DtoP',
+    page: () => const DriverToPassenger(),
   ),
 ];

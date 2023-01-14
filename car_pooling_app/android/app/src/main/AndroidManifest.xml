@@ -3,7 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-   <application
+    <application
         android:label="car_pooling_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

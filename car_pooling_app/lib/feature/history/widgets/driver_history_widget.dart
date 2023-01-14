@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:car_pooling_app/feature/history/controller/driver_history_controller.dart';
 import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
@@ -82,6 +83,8 @@ class RideHistoryWidget extends StatelessWidget {
             trailing: ride.complete
                 ? null
                 : PopUpWidget(historyController: historyController, ride: ride),
+
+                
             children: ride.passengers.map((p) {
               return ListTile(
                 title: Text(
@@ -161,6 +164,7 @@ class PopUpWidget extends StatelessWidget {
                     onPressed: () {
                       historyController.deleteRide(ride);
                       Navigator.pop(context);
+                      
                     },
                     child: const Text("Yes")),
                 NeumorphicButton(
@@ -187,7 +191,7 @@ class PopUpWidget extends StatelessWidget {
                       color: Colors.green[300],
                     ),
                     onPressed: () {
-                      historyController.completeRide(ride);
+                      historyController.completeRide(ride, context);
                       Navigator.pop(context);
                     },
                     child: const Text("Yes")),

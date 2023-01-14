@@ -1,3 +1,4 @@
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -22,6 +23,14 @@ cacheImagesFromAssets(BuildContext context) {
   precacheImage(const AssetImage('assets/images/car.gif'), context);
 }
 
+void easyLoadingConfig() {
+  EasyLoading.instance.displayDuration = const Duration(milliseconds: 1500);
+  EasyLoading.instance.indicatorType = EasyLoadingIndicatorType.fadingCircle;
+  EasyLoading.instance.loadingStyle = EasyLoadingStyle.light;
+  EasyLoading.instance.maskType = EasyLoadingMaskType.black;
+  EasyLoading.instance.backgroundColor = Colors.grey[300];
+}
+
 errorToast(String msg) {
   Fluttertoast.showToast(
     msg: msg,
@@ -29,25 +38,24 @@ errorToast(String msg) {
     textColor: Colors.white,
     fontSize: 16.0,
   );
-}  
+}
 
-successToast(String msg) {
-  Fluttertoast.showToast(
-    msg: msg,
-    backgroundColor: Colors.green,
-    textColor: Colors.white,
-    fontSize: 16.0,
-  );
-}  
+successBox(String msg) {
+  EasyLoading.showSuccess(msg);
+}
+
+neutralBox(String msg) {
+  EasyLoading.showInfo(msg);
+}
 
 neutralToast(String msg) {
   Fluttertoast.showToast(
     msg: msg,
-    backgroundColor: Colors.grey[500],
-    textColor: Colors.white,
+    backgroundColor: Colors.grey[300],
+    textColor: Colors.black,
     fontSize: 16.0,
   );
-}  
+}
 
 infoToast(String msg) {
   Fluttertoast.showToast(
@@ -58,4 +66,4 @@ infoToast(String msg) {
     textColor: Colors.amber,
     fontSize: 16.0,
   );
-}  
+}

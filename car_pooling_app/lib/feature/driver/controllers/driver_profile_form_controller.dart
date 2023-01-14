@@ -60,7 +60,7 @@ class DriverProfileController extends GetxController {
       Fluttertoast.showToast(msg: "Info updated successfully", backgroundColor: Colors.green, 
         textColor: Colors.white, fontSize: 16.0);
       
-      Get.off(() => const DriverApp());
+      Get.close(2);
     } else {
       Fluttertoast.showToast(msg: "Error updating info", backgroundColor: Colors.red,
           textColor: Colors.white, fontSize: 16.0);
