@@ -45,7 +45,7 @@ func (server *Server) createRequest(c *gin.Context) {
 		return
 	}
 
-	// * check if user has already requested a ride
+	// * check if user has already been in a ride
 	go func() {
 		filter := bson.M{
 			"complete":         false,
@@ -119,6 +119,21 @@ func (server *Server) createRequest(c *gin.Context) {
 		}
 
 		_, err = server.collection.Request.InsertOne(c, resp)
+		if err != nil {
+			return nil, err
+		}
+
+		// * add request to ride
+		filter := bson.M{
+			"_id":      req.RideId,
+		}
+		update := bson.M{
+			"$push": bson.M{
+				"requests": authPayload.Email,
+			},
+		}
+
+		_, err = server.collection.Ride.UpdateOne(c, filter, update)
 		if err != nil {
 			return nil, err
 		}

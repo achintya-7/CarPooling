@@ -76,6 +76,7 @@ func (server *Server) createRide(c *gin.Context) {
 				OriginLng: req.OriginLng,
 			},
 		},
+		Requests: []string{},
 	}
 
 	_, err = server.collection.Ride.InsertOne(c, response)
@@ -355,6 +356,8 @@ func (server *Server) searchRide(c *gin.Context) {
 		return
 	}
 
+	authPayload := c.MustGet(authorizationPayloadKey).(*token.Payload)
+
 	point, err := mapsApi.GetCords(req.Origin, server.config)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, errorResponse(err))
@@ -378,6 +381,18 @@ func (server *Server) searchRide(c *gin.Context) {
 				"complete": false,
 			},
 		},
+		{
+			"$match": bson.M{
+				"requests": bson.M{
+					"$not": bson.M{
+						"$elemMatch": bson.M{
+							"email": authPayload.Email,
+						},
+					},
+				},
+			},
+		},
+
 	}
 
 	cursor, err := server.collection.Ride.Aggregate(c, pipeline)

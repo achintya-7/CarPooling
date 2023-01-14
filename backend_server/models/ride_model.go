@@ -52,4 +52,5 @@ type CreateRideResp struct {
 	Passengers  []Passenger `json:"passengers" binding:"required"`
 	Complete    bool        `json:"complete"`
 	GeoJSON     primitive.M `json:"geojson"`
+	Requests    []string    `json:"requests"`
 }
