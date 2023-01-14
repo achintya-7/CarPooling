@@ -1,7 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import "package:latlong2/latlong.dart";
 
-const bool local = false;
+const bool local = true;
 
 const String apiUrlLocal = local ? "http://10.0.2.2:8080/" : "https://car-pooling.fly.dev/";
 

@@ -21,7 +21,7 @@ import (
 func (server *Server) createRide(c *gin.Context) {
 	var req models.CreateRideReq
 	var driver models.CreateDriverResponse
-	var result models.CreateDriverResponse
+	var ride models.CreateRideResp
 
 	err := c.ShouldBindJSON(&req)
 	if err != nil {
@@ -31,15 +31,17 @@ func (server *Server) createRide(c *gin.Context) {
 
 	authPayload := c.MustGet(authorizationPayloadKey).(*token.Payload)
 
+	// * Check if ride already exists
 	filter := bson.M{"email": authPayload.Email, "complete": false}
-	err = server.collection.Ride.FindOne(c, filter).Decode(&result)
-	if err == nil || result.Email != "" {
+	err = server.collection.Ride.FindOne(c, filter).Decode(&ride)
+	if err == nil || ride.Email != "" {
 		err := errors.New("ride already exists")
 		c.JSON(http.StatusConflict, errorResponse(err))
 		return
 	}
 
-	filter = bson.M{"email": authPayload.Email} // * Check if driver exists
+	// * Check if driver exists
+	filter = bson.M{"email": authPayload.Email} 
 	err = server.collection.Driver.FindOne(c, filter).Decode(&driver)
 	if err != nil {
 		err := errors.New("driver does not exist")
@@ -77,6 +79,7 @@ func (server *Server) createRide(c *gin.Context) {
 			},
 		},
 		Requests: []string{},
+		ToAmity:  req.ToAmity,
 	}
 
 	_, err = server.collection.Ride.InsertOne(c, response)
@@ -346,9 +349,9 @@ func (server *Server) getCurrentRidePassengers(c *gin.Context) {
 }
 
 func (server *Server) searchRide(c *gin.Context) {
+	var req models.SearchRideReq
 	var result []models.CreateRideResp
 
-	var req models.SearchRideReq
 
 	err := c.ShouldBindUri(&req)
 	if err != nil {
@@ -379,6 +382,7 @@ func (server *Server) searchRide(c *gin.Context) {
 		{
 			"$match": bson.M{
 				"complete": false,
+				"to_amity":  req.ToAmity,
 			},
 		},
 		{
@@ -392,7 +396,11 @@ func (server *Server) searchRide(c *gin.Context) {
 				},
 			},
 		},
-
+		{
+			"$sort": bson.M{
+				"timestamp": 1,
+			},
+		},
 	}
 
 	cursor, err := server.collection.Ride.Aggregate(c, pipeline)

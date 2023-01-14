@@ -1,6 +1,7 @@
 import 'package:car_pooling_app/feature/driver/view/driver_home_page.dart';
 import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/feature/home/controllers/api_controller.dart';
+import 'package:car_pooling_app/utils/utils.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_search_widget.dart';
 import 'package:car_pooling_app/widgets/drawer_passenger.dart';
@@ -73,12 +74,18 @@ class HomePage extends StatelessWidget {
             // * Confirm Button
             NeumorphicButton(
               onPressed: () async {
-                if (rideController.currentRide == null) {
-                  print("Search Rides");
+                if (rideController.currentRide.value != null) {
+                  neutralToast("You already have a ride");
                   return;
                 }
 
-                print("No Search Rides");
+                if (apiController.placePredictionModel == null) {
+                  neutralToast("Please select a destination");
+                  return;
+                }
+
+                print("Foo");
+                return;
               },
               style: NeumorphicStyle(
                 color: Colors.grey[200],
@@ -126,12 +133,13 @@ class HomePage extends StatelessWidget {
                       if (rideController.currentRide.value == null) {
                         return const Center(
                             child: Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text(
-                          "Search For New Rides",
-                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                        ),
-                            ));
+                          padding: EdgeInsets.all(4.0),
+                          child: Text(
+                            "Search For New Rides",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w500, fontSize: 20),
+                          ),
+                        ));
                       }
 
                       return RideInfoWidget(

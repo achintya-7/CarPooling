@@ -79,20 +79,20 @@ class DriverHomePage extends StatelessWidget {
 
               NeumorphicButton(
                 onPressed: () async {
-                  if (apiController.placePredictionModel == null) {
-                    errorToast("Please select a destination");
+                  if (rideController.currentRide.value != null) {
+                    neutralToast("You already have a ride");
                     return;
                   }
 
-                  // * can be removed
-                  if (rideController.currentRide.value == null) {
-                    Get.toNamed('/drivers/route', arguments: {
-                      "toAmity": apiController.searchToggle.value,
-                      "placePredictionModel": apiController.placePredictionModel
-                    });
-                  } else {
-                    neutralToast("Please complete your current ride first");
+                  if (apiController.placePredictionModel == null) {
+                    neutralToast("Please select a destination");
+                    return;
                   }
+
+                  Get.toNamed('/drivers/route', arguments: {
+                    "toAmity": apiController.searchToggle.value,
+                    "placePredictionModel": apiController.placePredictionModel
+                  });
                 },
                 style: buttonStyle,
                 child:

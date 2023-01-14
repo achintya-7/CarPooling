@@ -4,8 +4,11 @@ import 'package:car_pooling_app/utils/utils.dart';
 import 'package:get/get.dart';
 
 class RideController extends GetxController {
-  Rx<Ride?> currentRide = Rx<Ride?>(null);
   RxBool loading = false.obs;
+  RxBool loadingSearch = false.obs;
+
+  Rx<Ride?> currentRide = Rx<Ride?>(null);
+  RxList<Ride> searchedRides = RxList<Ride>([]);
 
   @override
   void onInit() {
@@ -41,7 +44,27 @@ class RideController extends GetxController {
     toogleLoading();
   }
 
+  Future searchRide(String origin) async {
+    toogleLoadingSearch();
+    final response = await HttpService.getRequest("rides/search/$origin");
+    if (response.statusCode == 200) {
+      searchedRides.value = (response.body as List)
+          .map((e) => Ride.fromJson(e))
+          .toList()
+          .cast<Ride>();
+    } else if (response.statusCode == 204) {
+      searchedRides.value = [];
+    } else {
+      errorToast("Something went wrong");
+    }
+    toogleLoadingSearch();
+  }
+
   void toogleLoading() {
     loading.value = !loading.value;
+  }
+
+  void toogleLoadingSearch() {
+    loadingSearch.value = !loadingSearch.value;
   }
 }

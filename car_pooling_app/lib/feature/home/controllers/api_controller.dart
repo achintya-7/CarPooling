@@ -16,10 +16,6 @@ class ApiController extends GetxController {
     searchToggle.value = !searchToggle.value;
   }
 
-  
-
-  
-
   Future<List<PlacePredictionModel>> getPredictions(String input) async {
     if (input.isEmpty) return [];
 

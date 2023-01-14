@@ -4,18 +4,18 @@ import 'package:car_pooling_app/service/http_model.dart';
 import 'package:car_pooling_app/service/http_service.dart';
 import 'package:car_pooling_app/utils/constants.dart';
 import 'package:car_pooling_app/utils/utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class DriverMapController extends GetxController {
   late String origin;
   late String destination;
   RouteModel? routemodel;
+  late bool toAmity;
   final rideController = Get.find<RideController>();
 
 
   Future<RouteModel?> getRoute(String name, bool toAmity) async {
-
+    this.toAmity = toAmity;
     if (toAmity) {
       origin = name;
       destination = amityAddress;
@@ -53,11 +53,13 @@ class DriverMapController extends GetxController {
       "mid_lat": routemodel!.points[routemodel!.points.length ~/ 2].lat,
       "mid_lng": routemodel!.points[routemodel!.points.length ~/ 2].lat,
       "timestamp": timestamp,
+      "to_amity": toAmity
     };
 
     final response = await HttpService.postRequest("rides", jsonMap);
     if (response.statusCode == 200) {
       successBox("Ride Confirmed");
+      rideController.getCurrentRide();
       Get.back();
       Get.offAndToNamed('/drivers/home');
     } else if (response.statusCode == 409) {
