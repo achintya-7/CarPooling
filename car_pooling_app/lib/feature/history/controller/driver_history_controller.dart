@@ -29,7 +29,7 @@ class DriverHistoryController extends GetxController {
 
     if (response.statusCode == 200) {
       updateFrontEnd(ride);
-      rideController.currentRide = null;
+      rideController.getCurrentRide();
       EasyLoading.showSuccess("Ride Completed");
       Get.offAndToNamed('/drivers/home');
     } else {
@@ -42,7 +42,7 @@ class DriverHistoryController extends GetxController {
     final response = await HttpService.deleteRequest("rides", null);
     if (response.statusCode == 200) {
       rides.remove(ride);
-      rideController.currentRide = null;
+      rideController.getCurrentRide();
       EasyLoading.showInfo("Ride deleted");
       Get.offAndToNamed('/drivers/home');
     } else {

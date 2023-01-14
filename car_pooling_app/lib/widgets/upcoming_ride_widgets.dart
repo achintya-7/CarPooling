@@ -1,50 +1,50 @@
 import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
+import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-class GetCurrentRideFutureBuilder extends StatelessWidget {
-  const GetCurrentRideFutureBuilder({
-    Key? key,
-    required this.rideController,
-  }) : super(key: key);
+// class GetCurrentRideFutureBuilder extends StatelessWidget {
+//   const GetCurrentRideFutureBuilder({
+//     Key? key,
+//     required this.rideController,
+//   }) : super(key: key);
 
-  final RideController rideController;
+//   final RideController rideController;
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: rideController.getCurrentRide(),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: SpinKitCubeGrid(
-              color: Colors.grey,
-            ),
-          );
-        }
+//   @override
+//   Widget build(BuildContext context) {
+//     return FutureBuilder(
+//       future: rideController.getCurrentRide(),
+//       builder: (BuildContext context, AsyncSnapshot snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return const Center(
+//             child: SpinKitCubeGrid(
+//               color: Colors.grey,
+//             ),
+//           );
+//         }
 
-        if (rideController.currentRide == null) {
-          return const Center(
-            child: Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text("No Upcoming Ride"),
-            ),
-          );
-        }
+//         if (rideController.currentRide == null) {
+//           return const Center(
+//             child: Padding(
+//               padding: EdgeInsets.all(8.0),
+//               child: Text("No Upcoming Ride"),
+//             ),
+//           );
+//         }
 
-        return RideInfoWidget(rideController: rideController);
-      },
-    );
-  }
-}
+//         return RideInfoWidget(rideController: rideController);
+//       },
+//     );
+//   }
+// }
 
 class RideInfoWidget extends StatelessWidget {
   const RideInfoWidget({
-    Key? key,
-    required this.rideController,
+    Key? key, required this.ride,
   }) : super(key: key);
 
-  final RideController rideController;
+  final Ride ride;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class RideInfoWidget extends StatelessWidget {
       child: ExpansionTile(
         textColor: Colors.black,
         collapsedTextColor: Colors.black,
-        title: Text(rideController.currentRide!.timestamp.toString()),
+        title: Text(ride.timestamp.toString()),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -70,7 +70,7 @@ class RideInfoWidget extends StatelessWidget {
                     color: Colors.red,
                   )),
                   TextSpan(
-                    text: rideController.currentRide!.origin,
+                    text: ride.origin,
                   ),
                 ],
               ),
@@ -88,7 +88,7 @@ class RideInfoWidget extends StatelessWidget {
                     color: Colors.green,
                   )),
                   TextSpan(
-                    text: rideController.currentRide!.destination,
+                    text: ride.destination,
                   ),
                 ],
               ),
@@ -96,7 +96,7 @@ class RideInfoWidget extends StatelessWidget {
             const SizedBox(height: 4),
           ],
         ),
-        children: rideController.currentRide!.passengers
+        children: ride.passengers
             .map(
               (e) => ListTile(
                 title: Text(e.name),
@@ -104,7 +104,7 @@ class RideInfoWidget extends StatelessWidget {
                   e.origin,
                   style: const TextStyle(color: Colors.black54),
                 ),
-                trailing: rideController.currentRide!.email == e.email
+                trailing: ride.email == e.email
                     ? const Icon(Icons.local_taxi)
                     : const Icon(Icons.person),
               ),

@@ -17,7 +17,7 @@ class _DriverToPassengerState extends State<DriverToPassenger> {
 
   loadingFunction() async {
     await Future.delayed(const Duration(milliseconds: 500));
-    Get.offNamed('/home');
+    Get.offAllNamed('/home');
   }
 
   @override

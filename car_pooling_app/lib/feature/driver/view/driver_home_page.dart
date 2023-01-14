@@ -85,7 +85,7 @@ class DriverHomePage extends StatelessWidget {
                   }
 
                   // * can be removed
-                  if (rideController.currentRide == null) {
+                  if (rideController.currentRide.value == null) {
                     Get.toNamed('/drivers/route', arguments: {
                       "toAmity": apiController.searchToggle.value,
                       "placePredictionModel": apiController.placePredictionModel
@@ -121,39 +121,34 @@ class DriverHomePage extends StatelessWidget {
               ),
 
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Neumorphic(
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
-                    child: rideController.currentRide == null
-                        ? GetCurrentRideFutureBuilder(rideController: rideController)
-                        : RideInfoWidget(rideController: rideController),
-                    // Obx(
-                    //   () {
+                    child: Obx(() {
+                      if (rideController.loading.isTrue) {
+                        return const Center(
+                          child: SpinKitCubeGrid(color: Colors.grey),
+                        );
+                      }
 
-                    //     if (rideController.loadingDriver.value) {
-                    //       return const Center(
-                    //         child: SpinKitCubeGrid(
-                    //           color: Colors.grey,
-                    //         ),
-                    //       );
-                    //     }
+                      if (rideController.currentRide.value == null) {
+                        return const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text(
+                          "No Upcoming Ride",
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                        ),
+                            ));
+                      }
 
-                    //     if (rideController.rideDriver == null) {
-                    //       return const Center(
-                    //         child: Padding(
-                    //           padding: EdgeInsets.all(8.0),
-                    //           child: Text("No Upcoming Ride"),
-                    //         ),
-                    //       );
-                    //     }
-
-                    //     return RideInfoWidget(rideController: rideController);
-                    //   },
-                    // ),
+                      return RideInfoWidget(
+                          ride: rideController.currentRide.value!);
+                    }),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -161,4 +156,3 @@ class DriverHomePage extends StatelessWidget {
     );
   }
 }
-

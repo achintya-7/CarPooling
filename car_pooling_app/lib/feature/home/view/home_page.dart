@@ -6,6 +6,7 @@ import 'package:car_pooling_app/widgets/custom_search_widget.dart';
 import 'package:car_pooling_app/widgets/drawer_passenger.dart';
 import 'package:car_pooling_app/widgets/upcoming_ride_widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
     final rideController = Get.find<RideController>();
 
     return Scaffold(
-      appBar: customAppBarWithAction(title: 'Home'),
+      appBar: customAppBarHome(title: 'Home', rideController: rideController),
       drawer: const CustomDrawer(),
       floatingActionButton: NeumorphicFloatingActionButton(
         style: NeumorphicStyle(
@@ -115,11 +116,27 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               child: Neumorphic(
                 child: Container(
-                  padding: const EdgeInsets.all(8.0),
-                  child: rideController.currentRide == null
-                      ? GetCurrentRideFutureBuilder(rideController: rideController)
-                      : RideInfoWidget(rideController: rideController),
-                ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: Obx(() {
+                      if (rideController.loading.isTrue) {
+                        return const Center(
+                            child: SpinKitCubeGrid(color: Colors.grey));
+                      }
+
+                      if (rideController.currentRide.value == null) {
+                        return const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text(
+                          "Search For New Rides",
+                          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                        ),
+                            ));
+                      }
+
+                      return RideInfoWidget(
+                          ride: rideController.currentRide.value!);
+                    })),
               ),
             ),
           ],

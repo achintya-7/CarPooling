@@ -4,13 +4,14 @@ import 'package:car_pooling_app/utils/utils.dart';
 import 'package:get/get.dart';
 
 class RideController extends GetxController {
-  Ride? currentRide;
-  Ride? ridePassenger;
+  Rx<Ride?> currentRide = Rx<Ride?>(null);
+  RxBool loading = false.obs;
 
-  RxBool loadingDriver = false.obs;
-  RxBool loadingPassenger = false.obs;
-
-  RxBool isExpanded = false.obs;
+  @override
+  void onInit() {
+    super.onInit();
+    getCurrentRide();
+  }
 
   Future<bool> prevRideCheck(bool driver) async {
     final response = await HttpService.getRequest("rides/driver");
@@ -27,40 +28,20 @@ class RideController extends GetxController {
     }
   }
 
-  Future<Ride?> getCurrentRide() async {
+  Future getCurrentRide() async {
+    toogleLoading();
     final response = await HttpService.getRequest("rides/passenger");
     if (response.statusCode == 200) {
-      currentRide = Ride.fromJson(response.body);
-      return currentRide;
+      currentRide.value = Ride.fromJson(response.body);
     } else if (response.statusCode == 204) {
-      currentRide = null;
-      return currentRide;
+      currentRide.value = null;
     } else {
-      currentRide = null;
-      errorToast("Something went wrong");
-      return currentRide;
-    }
-  }
-
-  Future getCurrentRidePassenger() async {
-    toogleLoading2();
-    final response = await HttpService.getRequest("rides/passenger");
-    if (response.statusCode == 200) {
-      ridePassenger = Ride.fromJson(response.body);
-    } else if (response.statusCode == 204) {
-      ridePassenger = null;
-    } else {
-      ridePassenger = null;
       errorToast("Something went wrong");
     }
-    toogleLoading2();
+    toogleLoading();
   }
 
-  void toogleLoading1() {
-    loadingDriver.value = !loadingDriver.value;
-  }
-
-  void toogleLoading2() {
-    loadingPassenger.value = !loadingPassenger.value;
+  void toogleLoading() {
+    loading.value = !loading.value;
   }
 }
