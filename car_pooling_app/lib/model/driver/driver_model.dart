@@ -12,6 +12,7 @@ class DriverModel with _$DriverModel {
     required String email,
     required int seats,
     required int experience,
+    required String gender,
   }) = _DriverModel;
 
   factory DriverModel.fromJson(Map<String, dynamic> json) =>

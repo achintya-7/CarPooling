@@ -26,6 +26,7 @@ mixin _$DriverModel {
   String get email => throw _privateConstructorUsedError;
   int get seats => throw _privateConstructorUsedError;
   int get experience => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $DriverModelCopyWith<$Res> {
       String phone,
       String email,
       int seats,
-      int experience});
+      int experience,
+      String gender});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
     Object? email = null,
     Object? seats = null,
     Object? experience = null,
+    Object? gender = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -93,6 +96,10 @@ class _$DriverModelCopyWithImpl<$Res, $Val extends DriverModel>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as int,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$_DriverModelCopyWith<$Res>
       String phone,
       String email,
       int seats,
-      int experience});
+      int experience,
+      String gender});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$_DriverModelCopyWithImpl<$Res>
     Object? email = null,
     Object? seats = null,
     Object? experience = null,
+    Object? gender = null,
   }) {
     return _then(_$_DriverModel(
       name: null == name
@@ -157,6 +166,10 @@ class __$$_DriverModelCopyWithImpl<$Res>
           ? _value.experience
           : experience // ignore: cast_nullable_to_non_nullable
               as int,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -170,7 +183,8 @@ class _$_DriverModel implements _DriverModel {
       required this.phone,
       required this.email,
       required this.seats,
-      required this.experience});
+      required this.experience,
+      required this.gender});
 
   factory _$_DriverModel.fromJson(Map<String, dynamic> json) =>
       _$$_DriverModelFromJson(json);
@@ -187,10 +201,12 @@ class _$_DriverModel implements _DriverModel {
   final int seats;
   @override
   final int experience;
+  @override
+  final String gender;
 
   @override
   String toString() {
-    return 'DriverModel(name: $name, car: $car, phone: $phone, email: $email, seats: $seats, experience: $experience)';
+    return 'DriverModel(name: $name, car: $car, phone: $phone, email: $email, seats: $seats, experience: $experience, gender: $gender)';
   }
 
   @override
@@ -204,13 +220,14 @@ class _$_DriverModel implements _DriverModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.seats, seats) || other.seats == seats) &&
             (identical(other.experience, experience) ||
-                other.experience == experience));
+                other.experience == experience) &&
+            (identical(other.gender, gender) || other.gender == gender));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, name, car, phone, email, seats, experience);
+  int get hashCode => Object.hash(
+      runtimeType, name, car, phone, email, seats, experience, gender);
 
   @JsonKey(ignore: true)
   @override
@@ -233,7 +250,8 @@ abstract class _DriverModel implements DriverModel {
       required final String phone,
       required final String email,
       required final int seats,
-      required final int experience}) = _$_DriverModel;
+      required final int experience,
+      required final String gender}) = _$_DriverModel;
 
   factory _DriverModel.fromJson(Map<String, dynamic> json) =
       _$_DriverModel.fromJson;
@@ -250,6 +268,8 @@ abstract class _DriverModel implements DriverModel {
   int get seats;
   @override
   int get experience;
+  @override
+  String get gender;
   @override
   @JsonKey(ignore: true)
   _$$_DriverModelCopyWith<_$_DriverModel> get copyWith =>

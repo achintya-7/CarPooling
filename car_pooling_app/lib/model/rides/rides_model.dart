@@ -17,11 +17,11 @@ class Ride with _$Ride {
     required int price,
     required String place_id,
     required String email,
-    required String phone,
+    required String phone,       
     required int timestamp,
     required List<PassengerRide> passengers,
     required bool complete,
-    
+    required String gender,
   }) = _Ride;
 
 

@@ -16,6 +16,7 @@ _$_Passenger _$$_PassengerFromJson(Map<String, dynamic> json) => _$_Passenger(
       pincode: json['pincode'] as String,
       firabse_id: json['firabse_id'] as String,
       token: json['token'] as String,
+      gender: json['gender'] as String,
     );
 
 Map<String, dynamic> _$$_PassengerToJson(_$_Passenger instance) =>
@@ -29,4 +30,5 @@ Map<String, dynamic> _$$_PassengerToJson(_$_Passenger instance) =>
       'pincode': instance.pincode,
       'firabse_id': instance.firabse_id,
       'token': instance.token,
+      'gender': instance.gender,
     };

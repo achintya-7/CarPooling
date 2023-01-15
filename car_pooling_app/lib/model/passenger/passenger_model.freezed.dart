@@ -29,6 +29,7 @@ mixin _$Passenger {
   String get pincode => throw _privateConstructorUsedError;
   String get firabse_id => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +51,8 @@ abstract class $PassengerCopyWith<$Res> {
       String state,
       String pincode,
       String firabse_id,
-      String token});
+      String token,
+      String gender});
 }
 
 /// @nodoc
@@ -75,6 +77,7 @@ class _$PassengerCopyWithImpl<$Res, $Val extends Passenger>
     Object? pincode = null,
     Object? firabse_id = null,
     Object? token = null,
+    Object? gender = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -113,6 +116,10 @@ class _$PassengerCopyWithImpl<$Res, $Val extends Passenger>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -133,7 +140,8 @@ abstract class _$$_PassengerCopyWith<$Res> implements $PassengerCopyWith<$Res> {
       String state,
       String pincode,
       String firabse_id,
-      String token});
+      String token,
+      String gender});
 }
 
 /// @nodoc
@@ -156,6 +164,7 @@ class __$$_PassengerCopyWithImpl<$Res>
     Object? pincode = null,
     Object? firabse_id = null,
     Object? token = null,
+    Object? gender = null,
   }) {
     return _then(_$_Passenger(
       name: null == name
@@ -194,6 +203,10 @@ class __$$_PassengerCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -210,7 +223,8 @@ class _$_Passenger implements _Passenger {
       required this.state,
       required this.pincode,
       required this.firabse_id,
-      required this.token});
+      required this.token,
+      required this.gender});
 
   factory _$_Passenger.fromJson(Map<String, dynamic> json) =>
       _$$_PassengerFromJson(json);
@@ -233,10 +247,12 @@ class _$_Passenger implements _Passenger {
   final String firabse_id;
   @override
   final String token;
+  @override
+  final String gender;
 
   @override
   String toString() {
-    return 'Passenger(name: $name, phone: $phone, email: $email, address: $address, city: $city, state: $state, pincode: $pincode, firabse_id: $firabse_id, token: $token)';
+    return 'Passenger(name: $name, phone: $phone, email: $email, address: $address, city: $city, state: $state, pincode: $pincode, firabse_id: $firabse_id, token: $token, gender: $gender)';
   }
 
   @override
@@ -253,13 +269,14 @@ class _$_Passenger implements _Passenger {
             (identical(other.pincode, pincode) || other.pincode == pincode) &&
             (identical(other.firabse_id, firabse_id) ||
                 other.firabse_id == firabse_id) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.gender, gender) || other.gender == gender));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, name, phone, email, address,
-      city, state, pincode, firabse_id, token);
+      city, state, pincode, firabse_id, token, gender);
 
   @JsonKey(ignore: true)
   @override
@@ -285,7 +302,8 @@ abstract class _Passenger implements Passenger {
       required final String state,
       required final String pincode,
       required final String firabse_id,
-      required final String token}) = _$_Passenger;
+      required final String token,
+      required final String gender}) = _$_Passenger;
 
   factory _Passenger.fromJson(Map<String, dynamic> json) =
       _$_Passenger.fromJson;
@@ -308,6 +326,8 @@ abstract class _Passenger implements Passenger {
   String get firabse_id;
   @override
   String get token;
+  @override
+  String get gender;
   @override
   @JsonKey(ignore: true)
   _$$_PassengerCopyWith<_$_Passenger> get copyWith =>

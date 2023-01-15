@@ -41,6 +41,7 @@ func (server *Server) cretaeDriver(c *gin.Context) {
 		Email:      result.Email,
 		Phone:      result.Phone,
 		Name:       result.Name,
+		Gender:     result.Gender,
 	}
 
 	_, err = server.collection.Driver.InsertOne(c, resp)

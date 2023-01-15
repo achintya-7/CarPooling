@@ -20,6 +20,7 @@ _$_Ride _$$_RideFromJson(Map<String, dynamic> json) => _$_Ride(
           .map((e) => PassengerRide.fromJson(e as Map<String, dynamic>))
           .toList(),
       complete: json['complete'] as bool,
+      gender: json['gender'] as String,
     );
 
 Map<String, dynamic> _$$_RideToJson(_$_Ride instance) => <String, dynamic>{
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$_RideToJson(_$_Ride instance) => <String, dynamic>{
       'timestamp': instance.timestamp,
       'passengers': instance.passengers,
       'complete': instance.complete,
+      'gender': instance.gender,
     };

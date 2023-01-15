@@ -1,7 +1,6 @@
 import pymongo
 import os
 from dotenv import load_dotenv
-import time
 
 load_dotenv("app.env")
 
@@ -14,6 +13,7 @@ db = client[db_name]
 driversCollection = db["drivers"]
 try:
     driversCollection.create_index("email", unique=True, name="email_index")
+    print("Driver Index created")
 except:
     print("Driver Index already exists")
 
@@ -22,6 +22,7 @@ passengersCollection = db["passengers"]
 try:
     passengersCollection.create_index("email", unique=True, name="email_index")
     passengersCollection.create_index("phone", unique=True, name="phone_index")
+    print("Passenger Index created")
 except:
     print("Passengers Index already exists")
 
@@ -29,6 +30,7 @@ except:
 requestsCollection = db["requests"]
 try:
     requestsCollection.create_index([("email"), ("ride_id")], unique=True, name="driver_passenger_index")
+    print("Requests Index created")
 except:
     print("Requests Index already exists")
 
@@ -36,6 +38,7 @@ except:
 ridesCollection = db["rides"]
 try:
     ridesCollection.create_index("geojson", "2dsphere", name="geojson_index")
+    print("GeoJSON Index created")
 except:
     print("GeoJSON Index already exists")
 
@@ -43,6 +46,7 @@ except:
 notificationsCollection = db["notifications"]
 try:
     notificationsCollection.create_index("timestamp", name="timestamp_index", expireAfterSeconds=172800)
+    print("Notifications Index created")
 except:
     print("Notifications Index already exists")
 

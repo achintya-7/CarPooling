@@ -14,6 +14,7 @@ _$_DriverModel _$$_DriverModelFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       seats: json['seats'] as int,
       experience: json['experience'] as int,
+      gender: json['gender'] as String,
     );
 
 Map<String, dynamic> _$$_DriverModelToJson(_$_DriverModel instance) =>
@@ -24,4 +25,5 @@ Map<String, dynamic> _$$_DriverModelToJson(_$_DriverModel instance) =>
       'email': instance.email,
       'seats': instance.seats,
       'experience': instance.experience,
+      'gender': instance.gender,
     };

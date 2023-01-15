@@ -13,6 +13,7 @@ type CreateDriverResponse struct {
 	Email      string `bson:"email" json:"email" binding:"required"`
 	Phone      string `bson:"phone" json:"phone" binding:"required"`
 	Name       string `bson:"name" json:"name" binding:"required"`
+	Gender     string `bson:"gender" json:"gender" binding:"required"`
 }
 
 type UpdateDriverRequest struct {
@@ -20,4 +21,3 @@ type UpdateDriverRequest struct {
 	Seats      int    `bson:"seats" json:"seats" binding:"required"`
 	Experience int    `bson:"experience" json:"experience" binding:"required"`
 }
-

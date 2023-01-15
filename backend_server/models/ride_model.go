@@ -37,8 +37,8 @@ type CompleteRideReq struct {
 }
 
 type SearchRideReq struct {
-	Origin string `uri:"place_id" binding:"required"`
-	ToAmity bool `uri:"to_amity" binding:"required"`
+	Origin  string `uri:"place_id" binding:"required"`
+	ToAmity bool   `uri:"to_amity" binding:"required"`
 }
 
 type CreateRideResp struct {
@@ -56,4 +56,5 @@ type CreateRideResp struct {
 	GeoJSON     primitive.M `json:"geojson"`
 	Requests    []string    `json:"requests"`
 	ToAmity     bool        `json:"to_amity" binding:"required"`
+	Gender      string      `json:"gender" binding:"required"`
 }

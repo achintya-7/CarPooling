@@ -9,6 +9,7 @@ type CreatePassengerRequest struct {
 	State      string `bson:"state" json:"state" binding:"required"`
 	Pincode    string `bson:"pincode" json:"pincode" binding:"required,max=6,min=6"`
 	FirebaseID string `bson:"firebase_id,unique" json:"firebase_id" binding:"required"`
+	Gender     string `bson:"gender" json:"gender" binding:"required"`
 }
 
 type CreatePassengerResponse struct {
@@ -21,6 +22,7 @@ type CreatePassengerResponse struct {
 	Pincode    string `bson:"pincode" json:"pincode" binding:"required,max=6,min=6"`
 	FirebaseID string `bson:"firebase_id,unique" json:"firebase_id" binding:"required"`
 	Token      string `bson:"token,unique" json:"token"`
+	Gender     string `bson:"gender" json:"gender" binding:"required"`
 }
 
 type CreatePassengerResponse2 struct {

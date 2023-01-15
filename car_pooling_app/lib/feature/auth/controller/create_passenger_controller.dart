@@ -13,7 +13,7 @@ class CreatePassengerController extends GetxController {
   late Passenger passenger;
 
   loginRequest(String name, String phone, String email, String address,
-      String city, String state, String pincode, String firebaseId) async {
+      String city, String state, String pincode, String firebaseId, String dropdownValue) async {
     showLoading();
 
     Map<String, dynamic> body = {
@@ -25,6 +25,7 @@ class CreatePassengerController extends GetxController {
       'state': state,
       'pincode': pincode,
       'firebase_id': firebaseId,
+      'gender': dropdownValue,
     };
 
     HttpObject httpObject = await HttpService.postRequest("passengers", body);

@@ -17,6 +17,7 @@ class Passenger with _$Passenger {
     required String pincode,
     required String firabse_id,
     required String token,
+    required String gender
   }) = _Passenger;
 
   factory Passenger.fromJson(Map<String, dynamic> json) =>

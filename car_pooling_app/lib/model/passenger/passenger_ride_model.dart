@@ -13,8 +13,6 @@ class PassengerRide with _$PassengerRide {
     required String origin,
     required double origin_lat,
     required double origin_lng,
-
-
   }) = _PassengerRide;
 
   factory PassengerRide.fromJson(Map<String, dynamic> json) =>

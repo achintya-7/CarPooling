@@ -31,6 +31,7 @@ mixin _$Ride {
   int get timestamp => throw _privateConstructorUsedError;
   List<PassengerRide> get passengers => throw _privateConstructorUsedError;
   bool get complete => throw _privateConstructorUsedError;
+  String get gender => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -53,7 +54,8 @@ abstract class $RideCopyWith<$Res> {
       String phone,
       int timestamp,
       List<PassengerRide> passengers,
-      bool complete});
+      bool complete,
+      String gender});
 }
 
 /// @nodoc
@@ -80,6 +82,7 @@ class _$RideCopyWithImpl<$Res, $Val extends Ride>
     Object? timestamp = null,
     Object? passengers = null,
     Object? complete = null,
+    Object? gender = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -126,6 +129,10 @@ class _$RideCopyWithImpl<$Res, $Val extends Ride>
           ? _value.complete
           : complete // ignore: cast_nullable_to_non_nullable
               as bool,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -147,7 +154,8 @@ abstract class _$$_RideCopyWith<$Res> implements $RideCopyWith<$Res> {
       String phone,
       int timestamp,
       List<PassengerRide> passengers,
-      bool complete});
+      bool complete,
+      String gender});
 }
 
 /// @nodoc
@@ -170,6 +178,7 @@ class __$$_RideCopyWithImpl<$Res> extends _$RideCopyWithImpl<$Res, _$_Ride>
     Object? timestamp = null,
     Object? passengers = null,
     Object? complete = null,
+    Object? gender = null,
   }) {
     return _then(_$_Ride(
       id: null == id
@@ -216,6 +225,10 @@ class __$$_RideCopyWithImpl<$Res> extends _$RideCopyWithImpl<$Res, _$_Ride>
           ? _value.complete
           : complete // ignore: cast_nullable_to_non_nullable
               as bool,
+      gender: null == gender
+          ? _value.gender
+          : gender // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -234,7 +247,8 @@ class _$_Ride implements _Ride {
       required this.phone,
       required this.timestamp,
       required final List<PassengerRide> passengers,
-      required this.complete})
+      required this.complete,
+      required this.gender})
       : _passengers = passengers;
 
   factory _$_Ride.fromJson(Map<String, dynamic> json) => _$$_RideFromJson(json);
@@ -267,10 +281,12 @@ class _$_Ride implements _Ride {
 
   @override
   final bool complete;
+  @override
+  final String gender;
 
   @override
   String toString() {
-    return 'Ride(id: $id, origin: $origin, destination: $destination, seats: $seats, price: $price, place_id: $place_id, email: $email, phone: $phone, timestamp: $timestamp, passengers: $passengers, complete: $complete)';
+    return 'Ride(id: $id, origin: $origin, destination: $destination, seats: $seats, price: $price, place_id: $place_id, email: $email, phone: $phone, timestamp: $timestamp, passengers: $passengers, complete: $complete, gender: $gender)';
   }
 
   @override
@@ -293,7 +309,8 @@ class _$_Ride implements _Ride {
             const DeepCollectionEquality()
                 .equals(other._passengers, _passengers) &&
             (identical(other.complete, complete) ||
-                other.complete == complete));
+                other.complete == complete) &&
+            (identical(other.gender, gender) || other.gender == gender));
   }
 
   @JsonKey(ignore: true)
@@ -310,7 +327,8 @@ class _$_Ride implements _Ride {
       phone,
       timestamp,
       const DeepCollectionEquality().hash(_passengers),
-      complete);
+      complete,
+      gender);
 
   @JsonKey(ignore: true)
   @override
@@ -338,7 +356,8 @@ abstract class _Ride implements Ride {
       required final String phone,
       required final int timestamp,
       required final List<PassengerRide> passengers,
-      required final bool complete}) = _$_Ride;
+      required final bool complete,
+      required final String gender}) = _$_Ride;
 
   factory _Ride.fromJson(Map<String, dynamic> json) = _$_Ride.fromJson;
 
@@ -364,6 +383,8 @@ abstract class _Ride implements Ride {
   List<PassengerRide> get passengers;
   @override
   bool get complete;
+  @override
+  String get gender;
   @override
   @JsonKey(ignore: true)
   _$$_RideCopyWith<_$_Ride> get copyWith => throw _privateConstructorUsedError;

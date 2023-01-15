@@ -80,6 +80,7 @@ func (server *Server) createRide(c *gin.Context) {
 		},
 		Requests: []string{},
 		ToAmity:  req.ToAmity,
+		Gender: driver.Gender,
 	}
 
 	_, err = server.collection.Ride.InsertOne(c, response)

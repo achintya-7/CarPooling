@@ -1,21 +1,29 @@
 import 'package:car_pooling_app/feature/auth/controller/create_passenger_controller.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
+import 'package:car_pooling_app/utils/constants.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_text_field.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
-class PassengerInfoFormPage extends StatelessWidget {
-  PassengerInfoFormPage({super.key});
+class PassengerInfoFormPage extends StatefulWidget {
+  const PassengerInfoFormPage({super.key});
 
-  final TextEditingController _nameController =
-      TextEditingController(text: AuthService().getCurrentUser()?.displayName);
+  @override
+  State<PassengerInfoFormPage> createState() => _PassengerInfoFormPageState();
+}
+
+class _PassengerInfoFormPageState extends State<PassengerInfoFormPage> {
+  final TextEditingController _nameController = TextEditingController(text: AuthService().getCurrentUser()?.displayName);
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
   final TextEditingController _cityController = TextEditingController();
   final TextEditingController _stateController = TextEditingController();
   final TextEditingController _pincodeController = TextEditingController();
+  
+  final items = ["Male", "Female"];
+  String dropDownValue = "Male";
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +53,26 @@ class PassengerInfoFormPage extends StatelessWidget {
                 hintText: 'Pincode',
                 size: 6,
                 keyboardTextType: TextInputType.number),
+            Neumorphic(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: DropdownButton(
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  value: dropDownValue,
+                  items: items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+                  onChanged: (value) {
+                    setState(() {
+                      dropDownValue = value!;
+                    });
+                  },
+                ),
+              ),
+            ),
             const SizedBox(
               height: 20,
             ),
             NeumorphicButton(
+              style: buttonStyle,
               onPressed: () {
                 if (_nameController.text.isEmpty ||
                     _phoneController.text.isEmpty ||
@@ -82,7 +106,8 @@ class PassengerInfoFormPage extends StatelessWidget {
                     _cityController.text,
                     _stateController.text,
                     _pincodeController.text,
-                    currentUser.uid);
+                    currentUser.uid,
+                    dropDownValue);
               },
               child: const Text('Continue'),
             ),
