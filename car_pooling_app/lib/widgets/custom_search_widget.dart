@@ -46,6 +46,7 @@ class CustomSearchWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               elevation: 8,
             ),
+            loadingBuilder: (context) => const SizedBox(),
             itemBuilder: (context, suggestion) {
               return ListTile(
                 shape: ShapeBorder.lerp(
@@ -165,6 +166,7 @@ class CustomSearchWidget2 extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               elevation: 8,
             ),
+            loadingBuilder: (context) => const SizedBox(),
             itemBuilder: (context, suggestion) {
               return ListTile(
                 shape: ShapeBorder.lerp(

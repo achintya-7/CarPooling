@@ -20,8 +20,7 @@ class DriverMapPage extends StatelessWidget {
   final priceController = TextEditingController();
 
   // * arguments
-  final PlacePredictionModel placePredictionModel =
-      Get.arguments["placePredictionModel"];
+  final PlacePredictionModel placePredictionModel = Get.arguments["placePredictionModel"];
   final bool toAmity = Get.arguments["toAmity"];
 
   // * variables

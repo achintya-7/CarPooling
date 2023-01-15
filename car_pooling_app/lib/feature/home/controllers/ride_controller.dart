@@ -6,14 +6,16 @@ import 'package:get/get.dart';
 class RideController extends GetxController {
   RxBool loading = false.obs;
   RxBool loadingSearch = false.obs;
+  RxBool ridesFound = true.obs;
 
   Rx<Ride?> currentRide = Rx<Ride?>(null);
   RxList<Ride> searchedRides = RxList<Ride>([]);
+  RxList<String> loadingRides = RxList<String>([]);
 
   @override
   void onInit() {
-    super.onInit();
     getCurrentRide();
+    super.onInit();
   }
 
   Future<bool> prevRideCheck(bool driver) async {
@@ -44,9 +46,10 @@ class RideController extends GetxController {
     toogleLoading();
   }
 
-  Future searchRide(String origin) async {
+  Future searchRide(String origin, bool toAmity) async {
     toogleLoadingSearch();
-    final response = await HttpService.getRequest("rides/search/$origin");
+    final response =
+        await HttpService.getRequest("rides/search/$origin/$toAmity");
     if (response.statusCode == 200) {
       searchedRides.value = (response.body as List)
           .map((e) => Ride.fromJson(e))
@@ -54,10 +57,17 @@ class RideController extends GetxController {
           .cast<Ride>();
     } else if (response.statusCode == 204) {
       searchedRides.value = [];
+      ridesFound.value = false;
     } else {
       errorToast("Something went wrong");
     }
     toogleLoadingSearch();
+  }
+
+  Future requestRide(Ride ride) async {
+    loadingRides.add(ride.id);
+    await Future.delayed(const Duration(seconds: 2));
+    loadingRides.remove(ride.id);
   }
 
   void toogleLoading() {
@@ -67,4 +77,5 @@ class RideController extends GetxController {
   void toogleLoadingSearch() {
     loadingSearch.value = !loadingSearch.value;
   }
+
 }

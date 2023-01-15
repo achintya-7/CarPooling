@@ -1,11 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
 import 'package:car_pooling_app/feature/driver/view/driver_home_page.dart';
-import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/feature/home/controllers/api_controller.dart';
+import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
+import 'package:car_pooling_app/model/rides/rides_model.dart';
+import 'package:car_pooling_app/utils/constants.dart';
 import 'package:car_pooling_app/utils/utils.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_search_widget.dart';
 import 'package:car_pooling_app/widgets/drawer_passenger.dart';
 import 'package:car_pooling_app/widgets/upcoming_ride_widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
@@ -84,7 +90,9 @@ class HomePage extends StatelessWidget {
                   return;
                 }
 
-                print("Foo");
+                rideController.searchRide(
+                    apiController.placePredictionModel!.place_id,
+                    apiController.searchToggle.value);
                 return;
               },
               style: NeumorphicStyle(
@@ -147,7 +155,260 @@ class HomePage extends StatelessWidget {
                     })),
               ),
             ),
+
+            const SizedBox(height: 20),
+
+            // * Search Ride List
+            SearchRideListWidget(rideController: rideController)
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class SearchRideListWidget extends StatelessWidget {
+  const SearchRideListWidget({
+    Key? key,
+    required this.rideController,
+  }) : super(key: key);
+
+  final RideController rideController;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 220,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Obx(() {
+          if (rideController.loadingSearch.isTrue) {
+            return const Center(child: SpinKitCubeGrid(color: Colors.grey));
+          }
+
+          if (rideController.searchedRides.isEmpty) {
+            if (rideController.ridesFound.isFalse) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(4.0),
+                  child: Text(
+                    "No Rides Found",
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                  ),
+                ),
+              );
+            }
+
+            return const Center(child: SizedBox());
+          }
+
+          return ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: rideController.searchedRides.length * 10,
+            itemBuilder: (context, index) {
+              final ride = rideController
+                  .searchedRides[index % rideController.searchedRides.length];
+              return RideSearchInfoWidget(
+                  ride: ride, rideController: rideController);
+            },
+          );
+        }),
+      ),
+    );
+  }
+}
+
+class RideSearchInfoWidget extends StatelessWidget {
+  const RideSearchInfoWidget({
+    Key? key,
+    required this.rideController,
+    required this.ride,
+  }) : super(key: key);
+
+  final RideController rideController;
+  final Ride ride;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 270,
+      child: Obx(
+        () => Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+          
+          foregroundDecoration: rideController.loadingRides.contains(ride.id)
+              ? BoxDecoration(
+                  color: Colors.grey,
+                  backgroundBlendMode: BlendMode.darken,
+                  borderRadius: BorderRadius.circular(12),
+                )
+              : null,
+          child: Card(
+              elevation: 4,
+              color: Colors.grey[200],
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // * Ride Name and Price
+                    Row(
+                      children: [
+                        Text(
+                          ride.name,
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        const Spacer(),
+                        Text(
+                          "Rs. ${ride.price.toString()}",
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
+                    // * Origin and Destination
+                    RichText(
+                      maxLines: 1,
+                      text: TextSpan(
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            overflow: TextOverflow.ellipsis),
+                        children: [
+                          const WidgetSpan(
+                              child: Icon(
+                            Icons.place,
+                            size: 19,
+                            color: Colors.red,
+                          )),
+                          TextSpan(
+                            text: ride.origin,
+                          ),
+                          const TextSpan(text: " ... "),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    RichText(
+                      maxLines: 1,
+                      text: TextSpan(
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 16,
+                            overflow: TextOverflow.ellipsis),
+                        children: [
+                          const WidgetSpan(
+                              child: Icon(
+                            Icons.place,
+                            size: 19,
+                            color: Colors.green,
+                          )),
+                          TextSpan(
+                            text: ride.destination,
+                          ),
+                          const TextSpan(text: " ... "),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    // * Date and Time
+                    RichText(
+                      maxLines: 1,
+                      text: TextSpan(
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 16),
+                        children: [
+                          const WidgetSpan(
+                              child: Icon(
+                            Icons.calendar_today,
+                            size: 19,
+                            color: Colors.blue,
+                          )),
+                          TextSpan(
+                            text: ride.timestamp.toString(),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+
+                    // * Passengers and Phone Number
+                    Row(
+                      children: [
+                        RichText(
+                          maxLines: 1,
+                          text: TextSpan(
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 16),
+                            children: [
+                              const WidgetSpan(
+                                child: Icon(
+                                  Icons.person,
+                                  size: 19,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              TextSpan(
+                                text: " ${ride.passengers.length.toString()}",
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Spacer(),
+                        RichText(
+                          maxLines: 1,
+                          text: TextSpan(
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 16),
+                            children: [
+                              const WidgetSpan(
+                                child: Icon(
+                                  Icons.phone,
+                                  size: 19,
+                                  color: Colors.purple,
+                                ),
+                              ),
+                              TextSpan(
+                                text: " ${ride.phone.toString()}",
+                              ),
+                              WidgetSpan(
+                                child: IconButton(
+                                  constraints: const BoxConstraints(),
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () {
+                                    Clipboard.setData(
+                                        ClipboardData(text: ride.phone));
+                                  },
+                                  icon: const Icon(
+                                    Icons.copy,
+                                    size: 19,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+
+                    // * Request Ride Button
+                    Align(
+                      alignment: Alignment.center,
+                      child: NeumorphicButton(
+                        style: buttonStyle4,
+                        onPressed: rideController.loadingRides.contains(ride.id)
+                            ? null
+                            : () => rideController.requestRide(ride),
+                        child: const Text("Request Ride"),
+                      ),
+                    )
+                  ],
+                ),
+              )),
         ),
       ),
     );

@@ -42,6 +42,7 @@ type SearchRideReq struct {
 }
 
 type CreateRideResp struct {
+	Name        string      `json:"name"`
 	Id          string      `json:"id" bson:"_id,omitempty"`
 	Origin      string      `json:"origin" binding:"required"`
 	Destination string      `json:"destination" binding:"required"`

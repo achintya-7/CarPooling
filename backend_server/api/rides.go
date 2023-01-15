@@ -41,7 +41,7 @@ func (server *Server) createRide(c *gin.Context) {
 	}
 
 	// * Check if driver exists
-	filter = bson.M{"email": authPayload.Email} 
+	filter = bson.M{"email": authPayload.Email}
 	err = server.collection.Driver.FindOne(c, filter).Decode(&driver)
 	if err != nil {
 		err := errors.New("driver does not exist")
@@ -50,11 +50,12 @@ func (server *Server) createRide(c *gin.Context) {
 	}
 
 	response := models.CreateRideResp{
+		Name:        driver.Name,
 		Origin:      req.Origin,
 		Destination: req.Destination,
 		Seats:       driver.Seats,
-		Email:       authPayload.Email,
-		Phone:       authPayload.Phone,
+		Email:       driver.Email,
+		Phone:       driver.Phone,
 		Price:       req.Price,
 		PlaceId:     req.PlaceId,
 		Timestamp:   req.Timestamp,
@@ -80,7 +81,7 @@ func (server *Server) createRide(c *gin.Context) {
 		},
 		Requests: []string{},
 		ToAmity:  req.ToAmity,
-		Gender: driver.Gender,
+		Gender:   driver.Gender,
 	}
 
 	_, err = server.collection.Ride.InsertOne(c, response)
@@ -353,6 +354,8 @@ func (server *Server) searchRide(c *gin.Context) {
 	var req models.SearchRideReq
 	var result []models.CreateRideResp
 
+	// get current timestamp of india in seconds
+	indiaTime := time.Now().In(time.FixedZone("Asia/Kolkata", 19800)).Unix()
 
 	err := c.ShouldBindUri(&req)
 	if err != nil {
@@ -382,13 +385,23 @@ func (server *Server) searchRide(c *gin.Context) {
 		},
 		{
 			"$match": bson.M{
-				"complete": false,
-				"to_amity":  req.ToAmity,
+				"timestamp": bson.M{
+					"$gte": indiaTime,
+				},
 			},
 		},
 		{
 			"$match": bson.M{
+				"complete": false,
+				"toamity":  req.ToAmity,
 				"requests": bson.M{
+					"$not": bson.M{
+						"$elemMatch": bson.M{
+							"email": authPayload.Email,
+						},
+					},
+				},
+				"passengers": bson.M{
 					"$not": bson.M{
 						"$elemMatch": bson.M{
 							"email": authPayload.Email,
@@ -414,7 +427,7 @@ func (server *Server) searchRide(c *gin.Context) {
 	cursor.All(c, &result)
 
 	if len(result) == 0 {
-		c.JSON(http.StatusNotFound, []models.CreateDriverResponse{})
+		c.JSON(http.StatusNoContent, []models.CreateDriverResponse{})
 		return
 	}
 

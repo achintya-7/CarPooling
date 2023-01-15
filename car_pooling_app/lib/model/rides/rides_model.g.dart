@@ -7,6 +7,7 @@ part of 'rides_model.dart';
 // **************************************************************************
 
 _$_Ride _$$_RideFromJson(Map<String, dynamic> json) => _$_Ride(
+      name: json['name'] as String,
       id: json['id'] as String,
       origin: json['origin'] as String,
       destination: json['destination'] as String,
@@ -24,6 +25,7 @@ _$_Ride _$$_RideFromJson(Map<String, dynamic> json) => _$_Ride(
     );
 
 Map<String, dynamic> _$$_RideToJson(_$_Ride instance) => <String, dynamic>{
+      'name': instance.name,
       'id': instance.id,
       'origin': instance.origin,
       'destination': instance.destination,

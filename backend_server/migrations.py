@@ -37,10 +37,11 @@ except:
 
 ridesCollection = db["rides"]
 try:
-    ridesCollection.create_index("geojson", "2dsphere", name="geojson_index")
+    ridesCollection.create_index("2dsphere", name="geojson_index")
     print("GeoJSON Index created")
-except:
-    print("GeoJSON Index already exists")
+except Exception as e:
+    print(e)
+
 
 
 notificationsCollection = db["notifications"]

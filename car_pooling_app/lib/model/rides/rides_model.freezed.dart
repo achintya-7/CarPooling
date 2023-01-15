@@ -20,6 +20,7 @@ Ride _$RideFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Ride {
+  String get name => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get origin => throw _privateConstructorUsedError;
   String get destination => throw _privateConstructorUsedError;
@@ -44,7 +45,8 @@ abstract class $RideCopyWith<$Res> {
       _$RideCopyWithImpl<$Res, Ride>;
   @useResult
   $Res call(
-      {String id,
+      {String name,
+      String id,
       String origin,
       String destination,
       int seats,
@@ -71,6 +73,7 @@ class _$RideCopyWithImpl<$Res, $Val extends Ride>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? id = null,
     Object? origin = null,
     Object? destination = null,
@@ -85,6 +88,10 @@ class _$RideCopyWithImpl<$Res, $Val extends Ride>
     Object? gender = null,
   }) {
     return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -144,7 +151,8 @@ abstract class _$$_RideCopyWith<$Res> implements $RideCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String id,
+      {String name,
+      String id,
       String origin,
       String destination,
       int seats,
@@ -167,6 +175,7 @@ class __$$_RideCopyWithImpl<$Res> extends _$RideCopyWithImpl<$Res, _$_Ride>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? name = null,
     Object? id = null,
     Object? origin = null,
     Object? destination = null,
@@ -181,6 +190,10 @@ class __$$_RideCopyWithImpl<$Res> extends _$RideCopyWithImpl<$Res, _$_Ride>
     Object? gender = null,
   }) {
     return _then(_$_Ride(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -237,7 +250,8 @@ class __$$_RideCopyWithImpl<$Res> extends _$RideCopyWithImpl<$Res, _$_Ride>
 @JsonSerializable()
 class _$_Ride implements _Ride {
   const _$_Ride(
-      {required this.id,
+      {required this.name,
+      required this.id,
       required this.origin,
       required this.destination,
       required this.seats,
@@ -253,6 +267,8 @@ class _$_Ride implements _Ride {
 
   factory _$_Ride.fromJson(Map<String, dynamic> json) => _$$_RideFromJson(json);
 
+  @override
+  final String name;
   @override
   final String id;
   @override
@@ -286,7 +302,7 @@ class _$_Ride implements _Ride {
 
   @override
   String toString() {
-    return 'Ride(id: $id, origin: $origin, destination: $destination, seats: $seats, price: $price, place_id: $place_id, email: $email, phone: $phone, timestamp: $timestamp, passengers: $passengers, complete: $complete, gender: $gender)';
+    return 'Ride(name: $name, id: $id, origin: $origin, destination: $destination, seats: $seats, price: $price, place_id: $place_id, email: $email, phone: $phone, timestamp: $timestamp, passengers: $passengers, complete: $complete, gender: $gender)';
   }
 
   @override
@@ -294,6 +310,7 @@ class _$_Ride implements _Ride {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Ride &&
+            (identical(other.name, name) || other.name == name) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.origin, origin) || other.origin == origin) &&
             (identical(other.destination, destination) ||
@@ -317,6 +334,7 @@ class _$_Ride implements _Ride {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      name,
       id,
       origin,
       destination,
@@ -346,7 +364,8 @@ class _$_Ride implements _Ride {
 
 abstract class _Ride implements Ride {
   const factory _Ride(
-      {required final String id,
+      {required final String name,
+      required final String id,
       required final String origin,
       required final String destination,
       required final int seats,
@@ -361,6 +380,8 @@ abstract class _Ride implements Ride {
 
   factory _Ride.fromJson(Map<String, dynamic> json) = _$_Ride.fromJson;
 
+  @override
+  String get name;
   @override
   String get id;
   @override

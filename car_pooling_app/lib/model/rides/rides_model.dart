@@ -10,6 +10,7 @@ part 'rides_model.g.dart';
 @freezed
 class Ride with _$Ride {
   const factory Ride({
+    required String name,
     required String id,
     required String origin,
     required String destination,

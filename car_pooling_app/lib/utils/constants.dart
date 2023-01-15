@@ -15,6 +15,13 @@ final buttonStyle = NeumorphicStyle(
   intensity: 1,
 );
 
+final buttonStyle4 = NeumorphicStyle(
+  color: Colors.grey[200],
+  boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.all(Radius.circular(12))),
+  depth: 4,
+  intensity: 1,
+);
+
 final buttonStyle2 = NeumorphicStyle(
   color: Colors.grey[200],
   boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.all(Radius.circular(12))),
