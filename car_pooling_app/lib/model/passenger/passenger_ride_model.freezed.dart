@@ -25,8 +25,7 @@ mixin _$PassengerRide {
   String get phone => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get origin => throw _privateConstructorUsedError;
-  double get origin_lat => throw _privateConstructorUsedError;
-  double get origin_lng => throw _privateConstructorUsedError;
+  String get origin_id => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -46,8 +45,7 @@ abstract class $PassengerRideCopyWith<$Res> {
       String phone,
       String name,
       String origin,
-      double origin_lat,
-      double origin_lng});
+      String origin_id});
 }
 
 /// @nodoc
@@ -68,8 +66,7 @@ class _$PassengerRideCopyWithImpl<$Res, $Val extends PassengerRide>
     Object? phone = null,
     Object? name = null,
     Object? origin = null,
-    Object? origin_lat = null,
-    Object? origin_lng = null,
+    Object? origin_id = null,
   }) {
     return _then(_value.copyWith(
       request_id: null == request_id
@@ -92,14 +89,10 @@ class _$PassengerRideCopyWithImpl<$Res, $Val extends PassengerRide>
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
               as String,
-      origin_lat: null == origin_lat
-          ? _value.origin_lat
-          : origin_lat // ignore: cast_nullable_to_non_nullable
-              as double,
-      origin_lng: null == origin_lng
-          ? _value.origin_lng
-          : origin_lng // ignore: cast_nullable_to_non_nullable
-              as double,
+      origin_id: null == origin_id
+          ? _value.origin_id
+          : origin_id // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -118,8 +111,7 @@ abstract class _$$_PassengerRideCopyWith<$Res>
       String phone,
       String name,
       String origin,
-      double origin_lat,
-      double origin_lng});
+      String origin_id});
 }
 
 /// @nodoc
@@ -138,8 +130,7 @@ class __$$_PassengerRideCopyWithImpl<$Res>
     Object? phone = null,
     Object? name = null,
     Object? origin = null,
-    Object? origin_lat = null,
-    Object? origin_lng = null,
+    Object? origin_id = null,
   }) {
     return _then(_$_PassengerRide(
       request_id: null == request_id
@@ -162,14 +153,10 @@ class __$$_PassengerRideCopyWithImpl<$Res>
           ? _value.origin
           : origin // ignore: cast_nullable_to_non_nullable
               as String,
-      origin_lat: null == origin_lat
-          ? _value.origin_lat
-          : origin_lat // ignore: cast_nullable_to_non_nullable
-              as double,
-      origin_lng: null == origin_lng
-          ? _value.origin_lng
-          : origin_lng // ignore: cast_nullable_to_non_nullable
-              as double,
+      origin_id: null == origin_id
+          ? _value.origin_id
+          : origin_id // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -183,8 +170,7 @@ class _$_PassengerRide implements _PassengerRide {
       required this.phone,
       required this.name,
       required this.origin,
-      required this.origin_lat,
-      required this.origin_lng});
+      required this.origin_id});
 
   factory _$_PassengerRide.fromJson(Map<String, dynamic> json) =>
       _$$_PassengerRideFromJson(json);
@@ -200,13 +186,11 @@ class _$_PassengerRide implements _PassengerRide {
   @override
   final String origin;
   @override
-  final double origin_lat;
-  @override
-  final double origin_lng;
+  final String origin_id;
 
   @override
   String toString() {
-    return 'PassengerRide(request_id: $request_id, email: $email, phone: $phone, name: $name, origin: $origin, origin_lat: $origin_lat, origin_lng: $origin_lng)';
+    return 'PassengerRide(request_id: $request_id, email: $email, phone: $phone, name: $name, origin: $origin, origin_id: $origin_id)';
   }
 
   @override
@@ -220,16 +204,14 @@ class _$_PassengerRide implements _PassengerRide {
             (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.origin, origin) || other.origin == origin) &&
-            (identical(other.origin_lat, origin_lat) ||
-                other.origin_lat == origin_lat) &&
-            (identical(other.origin_lng, origin_lng) ||
-                other.origin_lng == origin_lng));
+            (identical(other.origin_id, origin_id) ||
+                other.origin_id == origin_id));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, request_id, email, phone, name,
-      origin, origin_lat, origin_lng);
+  int get hashCode => Object.hash(
+      runtimeType, request_id, email, phone, name, origin, origin_id);
 
   @JsonKey(ignore: true)
   @override
@@ -252,8 +234,7 @@ abstract class _PassengerRide implements PassengerRide {
       required final String phone,
       required final String name,
       required final String origin,
-      required final double origin_lat,
-      required final double origin_lng}) = _$_PassengerRide;
+      required final String origin_id}) = _$_PassengerRide;
 
   factory _PassengerRide.fromJson(Map<String, dynamic> json) =
       _$_PassengerRide.fromJson;
@@ -269,9 +250,7 @@ abstract class _PassengerRide implements PassengerRide {
   @override
   String get origin;
   @override
-  double get origin_lat;
-  @override
-  double get origin_lng;
+  String get origin_id;
   @override
   @JsonKey(ignore: true)
   _$$_PassengerRideCopyWith<_$_PassengerRide> get copyWith =>

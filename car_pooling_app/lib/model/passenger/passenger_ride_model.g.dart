@@ -13,8 +13,7 @@ _$_PassengerRide _$$_PassengerRideFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as String,
       name: json['name'] as String,
       origin: json['origin'] as String,
-      origin_lat: (json['origin_lat'] as num).toDouble(),
-      origin_lng: (json['origin_lng'] as num).toDouble(),
+      origin_id: json['origin_id'] as String,
     );
 
 Map<String, dynamic> _$$_PassengerRideToJson(_$_PassengerRide instance) =>
@@ -24,6 +23,5 @@ Map<String, dynamic> _$$_PassengerRideToJson(_$_PassengerRide instance) =>
       'phone': instance.phone,
       'name': instance.name,
       'origin': instance.origin,
-      'origin_lat': instance.origin_lat,
-      'origin_lng': instance.origin_lng,
+      'origin_id': instance.origin_id,
     };

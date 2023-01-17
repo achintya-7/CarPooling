@@ -64,9 +64,9 @@ class RideController extends GetxController {
     toogleLoadingSearch();
   }
 
-  Future requestRide(Ride ride) async {
+  Future requestRide({required Ride ride, required String origin, required String originId}) async {
     loadingRides.add(ride.id);
-    await Future.delayed(const Duration(seconds: 2));
+    // final request = HttpService.getRequest(route)
     loadingRides.remove(ride.id);
   }
 

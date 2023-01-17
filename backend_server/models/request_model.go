@@ -3,10 +3,9 @@ package models
 import "go.mongodb.org/mongo-driver/bson/primitive"
 
 type RequestToDriverReq struct {
-	RideId    string  `json:"ride_id" bson:"_id,omitempty"`
-	Origin    string  `json:"origin"`
-	OriginLat float64 `json:"origin_lat"`
-	OriginLng float64 `json:"origin_lng"`
+	RideId   string `json:"ride_id" bson:"_id,omitempty" binding:"required"`
+	Origin   string `json:"origin" binding:"required"`
+	OriginId string `json:"origin_id" binding:"required"`
 }
 
 type RequestToDriverRes struct {
@@ -14,8 +13,7 @@ type RequestToDriverRes struct {
 	Name      string             `json:"name" binding:"required"`
 	RideId    primitive.ObjectID `json:"ride_id" bson:"ride_id,omitempty"`
 	Origin    string             `json:"origin"`
-	OriginLat float64            `json:"origin_lat"`
-	OriginLng float64            `json:"origin_lng"`
+	OriginId  string             `json:"origin_id"`
 	Email     string             `json:"email"`
 	Phone     string             `json:"phone"`
 	Timestamp int64              `json:"timestamp"`
@@ -28,8 +26,8 @@ type DriverRidesReq struct {
 
 type ModifyRideRequestReq struct {
 	RequestID string `json:"request_id" bson:"request_id,omitempty"`
-	RideID string `json:"ride_id" bson:"ride_id,omitempty"`
-	Email  string `json:"email" bson:"email,omitempty"`
+	RideID    string `json:"ride_id" bson:"ride_id,omitempty"`
+	Email     string `json:"email" bson:"email,omitempty"`
 }
 
 type DeleteRequest struct {

@@ -233,182 +233,185 @@ class RideSearchInfoWidget extends StatelessWidget {
     return SizedBox(
       width: 270,
       child: Obx(
-        () => Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-          
-          foregroundDecoration: rideController.loadingRides.contains(ride.id)
-              ? BoxDecoration(
-                  color: Colors.grey,
-                  backgroundBlendMode: BlendMode.darken,
-                  borderRadius: BorderRadius.circular(12),
-                )
-              : null,
-          child: Card(
-              elevation: 4,
-              color: Colors.grey[200],
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // * Ride Name and Price
-                    Row(
-                      children: [
-                        Text(
-                          ride.name,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        const Spacer(),
-                        Text(
-                          "Rs. ${ride.price.toString()}",
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-
-                    // * Origin and Destination
-                    RichText(
-                      maxLines: 1,
-                      text: TextSpan(
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            overflow: TextOverflow.ellipsis),
+        () => Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Container(
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+            
+            foregroundDecoration: rideController.loadingRides.contains(ride.id)
+                ? BoxDecoration(
+                    color: Colors.grey,
+                    backgroundBlendMode: BlendMode.darken,
+                    borderRadius: BorderRadius.circular(12),
+                  )
+                : null,
+            child: Card(
+                elevation: 4,
+                color: Colors.grey[200],
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // * Ride Name and Price
+                      Row(
                         children: [
-                          const WidgetSpan(
-                              child: Icon(
-                            Icons.place,
-                            size: 19,
-                            color: Colors.red,
-                          )),
-                          TextSpan(
-                            text: ride.origin,
+                          Text(
+                            ride.name,
+                            style: const TextStyle(fontSize: 20),
                           ),
-                          const TextSpan(text: " ... "),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 5),
-                    RichText(
-                      maxLines: 1,
-                      text: TextSpan(
-                        style: const TextStyle(
-                            color: Colors.black,
-                            fontSize: 16,
-                            overflow: TextOverflow.ellipsis),
-                        children: [
-                          const WidgetSpan(
-                              child: Icon(
-                            Icons.place,
-                            size: 19,
-                            color: Colors.green,
-                          )),
-                          TextSpan(
-                            text: ride.destination,
-                          ),
-                          const TextSpan(text: " ... "),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-
-                    // * Date and Time
-                    RichText(
-                      maxLines: 1,
-                      text: TextSpan(
-                        style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
-                        children: [
-                          const WidgetSpan(
-                              child: Icon(
-                            Icons.calendar_today,
-                            size: 19,
-                            color: Colors.blue,
-                          )),
-                          TextSpan(
-                            text: ride.timestamp.toString(),
+                          const Spacer(),
+                          Text(
+                            "Rs. ${ride.price.toString()}",
+                            style: const TextStyle(fontSize: 20),
                           ),
                         ],
                       ),
-                    ),
-                    const SizedBox(height: 10),
+                      const SizedBox(height: 10),
 
-                    // * Passengers and Phone Number
-                    Row(
-                      children: [
-                        RichText(
-                          maxLines: 1,
-                          text: TextSpan(
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 16),
-                            children: [
-                              const WidgetSpan(
+                      // * Origin and Destination
+                      RichText(
+                        maxLines: 1,
+                        text: TextSpan(
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              overflow: TextOverflow.ellipsis),
+                          children: [
+                            const WidgetSpan(
                                 child: Icon(
-                                  Icons.person,
-                                  size: 19,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                              TextSpan(
-                                text: " ${ride.passengers.length.toString()}",
-                              ),
-                            ],
-                          ),
+                              Icons.place,
+                              size: 19,
+                              color: Colors.red,
+                            )),
+                            TextSpan(
+                              text: ride.origin,
+                            ),
+                            const TextSpan(text: " ... "),
+                          ],
                         ),
-                        const Spacer(),
-                        RichText(
-                          maxLines: 1,
-                          text: TextSpan(
-                            style: const TextStyle(
-                                color: Colors.black, fontSize: 16),
-                            children: [
-                              const WidgetSpan(
+                      ),
+                      const SizedBox(height: 5),
+                      RichText(
+                        maxLines: 1,
+                        text: TextSpan(
+                          style: const TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              overflow: TextOverflow.ellipsis),
+                          children: [
+                            const WidgetSpan(
                                 child: Icon(
-                                  Icons.phone,
-                                  size: 19,
-                                  color: Colors.purple,
-                                ),
-                              ),
-                              TextSpan(
-                                text: " ${ride.phone.toString()}",
-                              ),
-                              WidgetSpan(
-                                child: IconButton(
-                                  constraints: const BoxConstraints(),
-                                  padding: EdgeInsets.zero,
-                                  onPressed: () {
-                                    Clipboard.setData(
-                                        ClipboardData(text: ride.phone));
-                                  },
-                                  icon: const Icon(
-                                    Icons.copy,
+                              Icons.place,
+                              size: 19,
+                              color: Colors.green,
+                            )),
+                            TextSpan(
+                              text: ride.destination,
+                            ),
+                            const TextSpan(text: " ... "),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
+                      // * Date and Time
+                      RichText(
+                        maxLines: 1,
+                        text: TextSpan(
+                          style:
+                              const TextStyle(color: Colors.black, fontSize: 16),
+                          children: [
+                            const WidgetSpan(
+                                child: Icon(
+                              Icons.calendar_today,
+                              size: 19,
+                              color: Colors.blue,
+                            )),
+                            TextSpan(
+                              text: ride.timestamp.toString(),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+
+                      // * Passengers and Phone Number
+                      Row(
+                        children: [
+                          RichText(
+                            maxLines: 1,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 16),
+                              children: [
+                                const WidgetSpan(
+                                  child: Icon(
+                                    Icons.person,
                                     size: 19,
+                                    color: Colors.purple,
                                   ),
                                 ),
-                              ),
-                            ],
+                                TextSpan(
+                                  text: " ${ride.passengers.length.toString()}",
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 10),
-
-                    // * Request Ride Button
-                    Align(
-                      alignment: Alignment.center,
-                      child: NeumorphicButton(
-                        style: buttonStyle4,
-                        onPressed: rideController.loadingRides.contains(ride.id)
-                            ? null
-                            : () => rideController.requestRide(ride),
-                        child: const Text("Request Ride"),
+                          const Spacer(),
+                          RichText(
+                            maxLines: 1,
+                            text: TextSpan(
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 16),
+                              children: [
+                                const WidgetSpan(
+                                  child: Icon(
+                                    Icons.phone,
+                                    size: 19,
+                                    color: Colors.purple,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: " ${ride.phone.toString()}",
+                                ),
+                                WidgetSpan(
+                                  child: IconButton(
+                                    constraints: const BoxConstraints(),
+                                    padding: EdgeInsets.zero,
+                                    onPressed: () {
+                                      Clipboard.setData(
+                                          ClipboardData(text: ride.phone));
+                                    },
+                                    icon: const Icon(
+                                      Icons.copy,
+                                      size: 19,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                    )
-                  ],
-                ),
-              )),
+                      const SizedBox(height: 10),
+
+                      // * Request Ride Button
+                      Align(
+                        alignment: Alignment.center,
+                        child: NeumorphicButton(
+                          style: buttonStyle4,
+                          onPressed: rideController.loadingRides.contains(ride.id)
+                              ? null
+                              : () => rideController.requestRide(origin: '', originId: '', ride: ride),
+                          child: const Text("Request Ride"),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+          ),
         ),
       ),
     );

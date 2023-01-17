@@ -111,9 +111,8 @@ func (server *Server) createRequest(c *gin.Context) {
 			Email:     authPayload.Email,
 			Phone:     authPayload.Phone,
 			Name:      authPayload.Name,
-			Origin:    result.Origin,
-			OriginLat: req.OriginLat,
-			OriginLng: req.OriginLng,
+			Origin:    req.Origin,
+			OriginId:  req.OriginId,
 			Timestamp: time.Now().Unix(),
 			Status:    0,
 		}
@@ -125,7 +124,7 @@ func (server *Server) createRequest(c *gin.Context) {
 
 		// * add request to ride
 		filter := bson.M{
-			"_id":      req.RideId,
+			"_id": req.RideId,
 		}
 		update := bson.M{
 			"$push": bson.M{
