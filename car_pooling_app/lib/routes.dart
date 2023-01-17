@@ -13,6 +13,7 @@ import 'package:car_pooling_app/feature/profile/views/update_profile_page.dart';
 import 'package:car_pooling_app/feature/splash/bindings/get_driver_bindings.dart';
 import 'package:car_pooling_app/feature/splash/view/driver_to_passenger.dart';
 import 'package:car_pooling_app/feature/splash/view/passenger_to_driver.dart';
+import 'package:car_pooling_app/feature/requests/views/passenger_requests_page.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 
 import 'feature/auth/view/login_page.dart';
@@ -21,6 +22,7 @@ import 'feature/history/view/passenger_history_page.dart';
 import 'feature/home/view/home_page.dart';
 import 'feature/map_feature/view/driver_map_page.dart';
 import 'feature/profile/views/passenger_info_page.dart';
+import 'feature/requests/bindings/requests_binding.dart';
 
 List<GetPage<dynamic>> getPages = [
   GetPage(
@@ -56,6 +58,11 @@ List<GetPage<dynamic>> getPages = [
     page: () => const PassengerHistoryPage(),
     binding: HistoryBinding(),
   ),
+  GetPage(
+    name: '/passengers/requests',
+    page: () => const PassengerRequestsPage(),
+    binding: RequestBinding(),
+  ),
 
   // * Drivers
   GetPage(
@@ -72,7 +79,7 @@ List<GetPage<dynamic>> getPages = [
     page: () => DriverInfoPage(),
     binding: ProfileBinding(),
   ),
-  
+
   GetPage(
     name: "/drivers/route",
     page: () => DriverMapPage(),

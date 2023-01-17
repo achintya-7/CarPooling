@@ -48,8 +48,9 @@ class RideController extends GetxController {
 
   Future searchRide(String origin, bool toAmity) async {
     toogleLoadingSearch();
-    final response =
-        await HttpService.getRequest("rides/search/$origin/$toAmity");
+
+    int booleanNum = toAmity ? 1 : 2;
+    final response = await HttpService.getRequest("rides/search/$origin/$booleanNum");
     if (response.statusCode == 200) {
       searchedRides.value = (response.body as List)
           .map((e) => Ride.fromJson(e))
@@ -64,7 +65,10 @@ class RideController extends GetxController {
     toogleLoadingSearch();
   }
 
-  Future requestRide({required Ride ride, required String? origin, required String? originId}) async {
+  Future requestRide(
+      {required Ride ride,
+      required String? origin,
+      required String? originId}) async {
     loadingRides.add(ride.id);
 
     if (origin == null || originId == null) {
@@ -99,5 +103,4 @@ class RideController extends GetxController {
   void removeRide(Ride ride) {
     searchedRides.remove(ride);
   }
-
 }

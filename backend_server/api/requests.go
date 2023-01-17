@@ -106,15 +106,19 @@ func (server *Server) createRequest(c *gin.Context) {
 		}
 
 		resp = models.RequestToDriverRes{
-			ID:        primitive.NewObjectID(),
-			RideId:    ride_id,
-			Email:     authPayload.Email,
-			Phone:     authPayload.Phone,
-			Name:      authPayload.Name,
-			Origin:    req.Origin,
-			OriginId:  req.OriginId,
-			Timestamp: time.Now().Unix(),
-			Status:    0,
+			ID:            primitive.NewObjectID(),
+			RideId:        ride_id,
+			Email:         authPayload.Email,
+			Phone:         authPayload.Phone,
+			Name:          authPayload.Name,
+			Origin:        req.Origin,
+			OriginId:      req.OriginId,
+			Timestamp:     time.Now().Unix(),
+			Status:        0,
+			DriverName:    result.Name,
+			RideOrigin:    result.Origin,
+			RideDestination: result.Destination,
+			RideTimestamp: result.Timestamp,
 		}
 
 		_, err = server.collection.Request.InsertOne(c, resp)
@@ -231,6 +235,11 @@ func (server *Server) getRideRequestsPassenger(c *gin.Context) {
 
 	if err = cursor.All(c, &result); err != nil {
 		c.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	if len(result) == 0 {
+		c.JSON(http.StatusNoContent, []models.RequestToDriverRes{})
 		return
 	}
 

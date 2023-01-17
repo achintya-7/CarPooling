@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:math';
 
-import 'package:car_pooling_app/feature/driver/view/driver_home_page.dart';
 import 'package:car_pooling_app/feature/home/controllers/api_controller.dart';
 import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/model/rides/rides_model.dart';
@@ -90,7 +88,8 @@ class HomePage extends StatelessWidget {
                     neutralToast("Please select a destination");
                     return;
                   }
-      
+
+     
                   rideController.searchRide(
                       apiController.placePredictionModel!.place_id,
                       apiController.searchToggle.value);
@@ -402,7 +401,7 @@ class RideSearchInfoWidget extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: NeumorphicButton(
-                          style: buttonStyle4,
+                          style: buttonStyle2,
                           onPressed: rideController.loadingRides.contains(ride.id)
                               ? null
                               : () => rideController.requestRide(

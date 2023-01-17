@@ -353,6 +353,7 @@ func (server *Server) getCurrentRidePassengers(c *gin.Context) {
 func (server *Server) searchRide(c *gin.Context) {
 	var req models.SearchRideReq
 	var result []models.CreateRideResp
+	var toAmity bool
 
 	// get current timestamp of india in seconds
 	indiaTime := time.Now().In(time.FixedZone("Asia/Kolkata", 19800)).Unix()
@@ -362,6 +363,14 @@ func (server *Server) searchRide(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, errorResponse(err))
 		return
 	}
+
+	if (req.ToAmity == 2) {
+		toAmity = false
+	} else {
+		toAmity = true
+	}
+
+	fmt.Println(toAmity)
 
 	authPayload := c.MustGet(authorizationPayloadKey).(*token.Payload)
 
@@ -393,7 +402,7 @@ func (server *Server) searchRide(c *gin.Context) {
 		{
 			"$match": bson.M{
 				"complete": false,
-				"toamity":  req.ToAmity,
+				"toamity":  toAmity,
 				"requests": bson.M{
 					"$not": bson.M{
 						"$elemMatch": bson.M{

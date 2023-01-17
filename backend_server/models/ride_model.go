@@ -38,7 +38,7 @@ type CompleteRideReq struct {
 
 type SearchRideReq struct {
 	Origin  string `uri:"place_id" binding:"required"`
-	ToAmity bool   `uri:"to_amity" binding:"required"`
+	ToAmity int   `uri:"to_amity" binding:"required"` // 1 for true, 0 for false
 }
 
 type CreateRideResp struct {

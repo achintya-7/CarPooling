@@ -29,12 +29,13 @@ class CustomDrawer extends StatelessWidget {
               backgroundImage: NetworkImage(user?.photoURL ?? ""),
             ),
           ),
-          const DrawerListTile(
-              text: "Home", route: '/home', icon: (Icons.home)),
-          const DrawerListTile(
-              text: "Profile", route: '/passengers', icon: Icons.person),
-          const DrawerListTile(
-              text: "History", route: '/passengers/history', icon: Icons.history),
+          const DrawerListTile(text: "Home", route: '/home', icon: (Icons.home)),
+
+          const DrawerListTile(text: "Profile", route: '/passengers', icon: Icons.person),
+          
+          const DrawerListTile(text: "Requests", route: '/passengers/requests', icon: Icons.info),
+
+          const DrawerListTile(text: "History", route: '/passengers/history', icon: Icons.history),
 
           const Spacer(),
 
