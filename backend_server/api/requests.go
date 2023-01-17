@@ -122,13 +122,20 @@ func (server *Server) createRequest(c *gin.Context) {
 			return nil, err
 		}
 
+		id, err := utils.StringToObjectId(req.RideId)
+		if err != nil {
+			return nil, err
+		}
+
 		// * add request to ride
 		filter := bson.M{
-			"_id": req.RideId,
+			"_id": id,
 		}
 		update := bson.M{
 			"$push": bson.M{
-				"requests": authPayload.Email,
+				"requests": bson.M{
+					"user": authPayload.Email,
+				},
 			},
 		}
 

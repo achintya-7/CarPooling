@@ -64,9 +64,27 @@ class RideController extends GetxController {
     toogleLoadingSearch();
   }
 
-  Future requestRide({required Ride ride, required String origin, required String originId}) async {
+  Future requestRide({required Ride ride, required String? origin, required String? originId}) async {
     loadingRides.add(ride.id);
-    // final request = HttpService.getRequest(route)
+
+    if (origin == null || originId == null) {
+      errorToast("Please select a valid origin");
+      loadingRides.remove(ride.id);
+      return;
+    }
+
+    Map<String, dynamic> body = {
+      "ride_id": ride.id,
+      "origin": origin,
+      "origin_id": originId
+    };
+    final response = await HttpService.postRequest("requests", body);
+    if (response.statusCode == 200) {
+      removeRide(ride);
+      loadingRides.remove(ride.id);
+    } else {
+      errorToast("Something went wrong");
+    }
     loadingRides.remove(ride.id);
   }
 
@@ -76,6 +94,10 @@ class RideController extends GetxController {
 
   void toogleLoadingSearch() {
     loadingSearch.value = !loadingSearch.value;
+  }
+
+  void removeRide(Ride ride) {
+    searchedRides.remove(ride);
   }
 
 }

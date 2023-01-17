@@ -29,10 +29,13 @@ except:
 
 requestsCollection = db["requests"]
 try:
-    requestsCollection.create_index([("email"), ("ride_id")], unique=True, name="driver_passenger_index")
+    requestsCollection.create_index(
+    [("email", pymongo.DESCENDING), ("ride_id", pymongo.ASCENDING)],
+    unique=True
+)
     print("Requests Index created")
-except:
-    print("Requests Index already exists")
+except Exception as e:
+    print(e)
 
 
 ridesCollection = db["rides"]

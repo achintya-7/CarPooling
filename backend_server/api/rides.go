@@ -397,7 +397,7 @@ func (server *Server) searchRide(c *gin.Context) {
 				"requests": bson.M{
 					"$not": bson.M{
 						"$elemMatch": bson.M{
-							"email": authPayload.Email,
+							"user": authPayload.Email,
 						},
 					},
 				},
