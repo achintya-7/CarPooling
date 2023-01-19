@@ -40,7 +40,7 @@ except Exception as e:
 
 ridesCollection = db["rides"]
 try:
-    ridesCollection.create_index("2dsphere", name="geojson_index")
+    ridesCollection.create_index([("geojson", pymongo.GEOSPHERE)])
     print("GeoJSON Index created")
 except Exception as e:
     print(e)

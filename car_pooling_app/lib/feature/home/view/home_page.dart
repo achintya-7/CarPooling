@@ -95,14 +95,7 @@ class HomePage extends StatelessWidget {
                       apiController.searchToggle.value);
                   return;
                 },
-                style: NeumorphicStyle(
-                  color: Colors.grey[200],
-                  boxShape: NeumorphicBoxShape.roundRect(
-                      const BorderRadius.all(Radius.circular(12))),
-                  depth: 8,
-                  border: const NeumorphicBorder(width: 2),
-                  intensity: 1,
-                ),
+                style: buttonStyle4,
                 child: const Text("Search Rides", style: TextStyle(fontSize: 16)),
               ),
       
@@ -401,7 +394,7 @@ class RideSearchInfoWidget extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: NeumorphicButton(
-                          style: buttonStyle2,
+                          style: buttonStyle4,
                           onPressed: rideController.loadingRides.contains(ride.id)
                               ? null
                               : () => rideController.requestRide(
