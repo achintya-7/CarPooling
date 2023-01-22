@@ -28,12 +28,19 @@ type DriverRidesReq struct {
 	RideID string `uri:"ride_id" bson:"ride_id,omitempty"`
 }
 
-type ModifyRideRequestReq struct {
+type RejectRide struct {
 	RequestID string `json:"request_id" bson:"request_id,omitempty"`
 	RideID    string `json:"ride_id" bson:"ride_id,omitempty"`
-	Email     string `json:"email" bson:"email,omitempty"`
 }
 
 type DeleteRequest struct {
 	ID string `json:"id" bson:"_id,omitempty"`
+}
+
+type AcceptRide struct {
+	RequestID string `json:"request_id" bson:"request_id,omitempty"`
+	RideID    string `json:"ride_id" bson:"ride_id,omitempty"`
+	
+	Origin    string `json:"origin" bson:"origin,omitempty"`
+	OriginId  string `json:"origin_id" bson:"origin_id,omitempty"`
 }

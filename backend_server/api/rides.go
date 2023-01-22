@@ -75,8 +75,7 @@ func (server *Server) createRide(c *gin.Context) {
 				Origin:    req.Origin,
 				Phone:     authPayload.Phone,
 				Name:      driver.Name,
-				OriginLat: req.OriginLat,
-				OriginLng: req.OriginLng,
+				OriginId:  req.PlaceId,
 			},
 		},
 		Requests: []string{},
@@ -364,7 +363,7 @@ func (server *Server) searchRide(c *gin.Context) {
 		return
 	}
 
-	if (req.ToAmity == 2) {
+	if req.ToAmity == 2 {
 		toAmity = false
 	} else {
 		toAmity = true

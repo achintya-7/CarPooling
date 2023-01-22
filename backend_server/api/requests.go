@@ -106,19 +106,19 @@ func (server *Server) createRequest(c *gin.Context) {
 		}
 
 		resp = models.RequestToDriverRes{
-			ID:            primitive.NewObjectID(),
-			RideId:        ride_id,
-			Email:         authPayload.Email,
-			Phone:         authPayload.Phone,
-			Name:          authPayload.Name,
-			Origin:        req.Origin,
-			OriginId:      req.OriginId,
-			Timestamp:     time.Now().Unix(),
-			Status:        0,
-			DriverName:    result.Name,
-			RideOrigin:    result.Origin,
+			ID:              primitive.NewObjectID(),
+			RideId:          ride_id,
+			Email:           authPayload.Email,
+			Phone:           authPayload.Phone,
+			Name:            authPayload.Name,
+			Origin:          req.Origin,
+			OriginId:        req.OriginId,
+			Timestamp:       time.Now().Unix(),
+			Status:          0,
+			DriverName:      result.Name,
+			RideOrigin:      result.Origin,
 			RideDestination: result.Destination,
-			RideTimestamp: result.Timestamp,
+			RideTimestamp:   result.Timestamp,
 		}
 
 		_, err = server.collection.Request.InsertOne(c, resp)
@@ -195,7 +195,10 @@ func (server *Server) getRideRequestsDriver(c *gin.Context) {
 		return
 	}
 
-	filter := bson.M{"ride_id": ride_id}
+	filter := bson.M{
+		"ride_id": ride_id,
+		"status":  0,
+	}
 
 	cursor, err := server.collection.Request.Find(c, filter)
 	if err != nil {
@@ -204,12 +207,12 @@ func (server *Server) getRideRequestsDriver(c *gin.Context) {
 	}
 
 	if err = cursor.All(c, &result); err != nil {
-		c.JSON(http.StatusNoContent, errorResponse(err))
+		c.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
 
 	if len(result) == 0 {
-		c.JSON(http.StatusNotFound, []models.RequestToDriverRes{})
+		c.JSON(http.StatusNoContent, []models.RequestToDriverRes{})
 		return
 	}
 
@@ -270,16 +273,18 @@ func (server *Server) acceptRideRequest(c *gin.Context) {
 
 		// * Check if ride exists and has seats available and then push in the passenger data
 		filter := bson.M{
-			"email":    authPayload.Email,
+			"email": authPayload.Email,
 			"complete": false,
 			"$expr": bson.M{
 				"$gt": bson.A{"$seats", bson.M{"$size": "$passengers"}},
-			}}
+			},
+		}
 		update := bson.M{"$push": bson.M{"passengers": req}}
 		options := options.FindOneAndUpdate().SetReturnDocument(options.After)
 
 		result := server.collection.Ride.FindOneAndUpdate(c, filter, update, options)
 		if result.Err() != nil {
+			fmt.Println(result.Err())
 			return nil, result.Err()
 		}
 
@@ -297,8 +302,11 @@ func (server *Server) acceptRideRequest(c *gin.Context) {
 			return nil, updateResult.Err()
 		}
 
-		// * Delete all other requests for the passenger
-		filter3 := bson.M{"email": req.Email}
+		// * Delete all other requests for the passenger except the accepted one
+		filter3 := bson.M{
+			"email": req.Email, 
+			"_id": bson.M{"$ne": request_id},
+		}
 		_, err = server.collection.Request.DeleteMany(c, filter3)
 		if err != nil {
 			return nil, err
@@ -339,7 +347,7 @@ func (server *Server) acceptRideRequest(c *gin.Context) {
 }
 
 func (server *Server) rejectRideRequest(c *gin.Context) {
-	var req models.ModifyRideRequestReq
+	var req models.RejectRide
 
 	wc := writeconcern.New(writeconcern.WMajority())
 	rc := readconcern.Linearizable()
@@ -392,7 +400,7 @@ func (server *Server) rejectRideRequest(c *gin.Context) {
 		msg := fmt.Sprintf("Your request for ride has been DECLINED by the driver %s", authPayload.Name)
 
 		notification := models.NotificationModel{
-			Email:       req.Email,
+			Email:       authPayload.Email,
 			Content:     msg,
 			Timestamp:   time.Now().Unix(),
 			SenderPhone: authPayload.Phone,

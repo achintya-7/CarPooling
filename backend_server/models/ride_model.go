@@ -18,13 +18,12 @@ type CreateRideReq struct {
 }
 
 type Passenger struct {
-	RequestID string  `json:"request_id" bson:"request_id,omitempty"` // request id
+	RequestID string  `json:"request_id" bson:"request_id,omitempty"`
 	Email     string  `json:"email" binding:"required"`
 	Phone     string  `json:"phone" binding:"required"`
 	Name      string  `json:"name" binding:"required"`
 	Origin    string  `json:"origin" binding:"required"`
-	OriginLat float64 `json:"origin_lat" binding:"required"`
-	OriginLng float64 `json:"origin_lng" binding:"required"`
+	OriginId string  `json:"origin_id" binding:"required"` // place id
 }
 
 type UpdateRideReq struct {

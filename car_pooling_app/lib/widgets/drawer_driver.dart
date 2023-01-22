@@ -1,3 +1,4 @@
+import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -10,6 +11,8 @@ class CustomDrawer2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final rideController = Get.find<RideController>();
+
     User? user = AuthService().getCurrentUser();
 
     return Drawer(
@@ -50,6 +53,19 @@ class CustomDrawer2 extends StatelessWidget {
           ),
           DrawerListTile(
               text: "Profile", route: '/drivers/profile', icon: Icons.person, drawerKey: drawerKey),
+
+          Obx(() {
+            if (rideController.currentRide.value != null) {
+              return DrawerListTile(
+                  text: "Requests",
+                  route: '/drivers/requests',
+                  icon: Icons.info,
+                  drawerKey: drawerKey);
+            } else {
+              return const SizedBox();
+            }
+          }),
+
           DrawerListTile(
               text: "History", route: '/drivers/history', icon: Icons.history, drawerKey: drawerKey),
           const Spacer(),

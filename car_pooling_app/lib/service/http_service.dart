@@ -56,7 +56,6 @@ class HttpService {
 
   static Future<HttpObject> postRequest(
       String route, Map<String, dynamic> jsonMap) async {
-    print("Started");
     String url = apiUrlLocal + route;
     String body = json.encode(jsonMap);
     try {

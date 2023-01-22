@@ -10,6 +10,7 @@ import 'package:car_pooling_app/feature/notifications/view/notificaiton_page.dar
 import 'package:car_pooling_app/feature/profile/bindings/profile_binding.dart';
 import 'package:car_pooling_app/feature/profile/views/driver_info_page.dart';
 import 'package:car_pooling_app/feature/profile/views/update_profile_page.dart';
+import 'package:car_pooling_app/feature/requests/views/driver_requests_page.dart';
 import 'package:car_pooling_app/feature/splash/bindings/get_driver_bindings.dart';
 import 'package:car_pooling_app/feature/splash/view/driver_to_passenger.dart';
 import 'package:car_pooling_app/feature/splash/view/passenger_to_driver.dart';
@@ -31,7 +32,7 @@ List<GetPage<dynamic>> getPages = [
   ),
   GetPage(
     name: '/passenger/form',
-    page: () => PassengerInfoFormPage(),
+    page: () => const PassengerInfoFormPage(),
     binding: AuthBinding(),
   ),
   GetPage(
@@ -89,6 +90,11 @@ List<GetPage<dynamic>> getPages = [
     name: '/drivers/history',
     page: () => DriverHistoryPage(),
     binding: HistoryBinding(),
+  ),
+  GetPage(
+    name: '/drivers/requests',
+    page: () => const DriverRequestsPage(),
+    binding: RequestBinding(),
   ),
 
   // * Splash

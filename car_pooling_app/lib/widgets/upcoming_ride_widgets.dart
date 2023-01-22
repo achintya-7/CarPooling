@@ -101,6 +101,7 @@ class RideInfoWidget extends StatelessWidget {
                 title: Text(e.name),
                 subtitle: Text(
                   e.origin,
+                  maxLines: 2,
                   style: const TextStyle(color: Colors.black54),
                 ),
                 trailing: ride.email == e.email

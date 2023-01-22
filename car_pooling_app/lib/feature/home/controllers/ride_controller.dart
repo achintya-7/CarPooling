@@ -85,7 +85,7 @@ class RideController extends GetxController {
     final response = await HttpService.postRequest("requests", body);
     if (response.statusCode == 200) {
       removeRide(ride);
-      loadingRides.remove(ride.id);
+      // loadingRides.remove(ride.id);
     } else {
       errorToast("Something went wrong");
     }

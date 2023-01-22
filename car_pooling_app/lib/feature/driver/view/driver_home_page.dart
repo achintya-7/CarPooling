@@ -9,7 +9,6 @@ import 'package:car_pooling_app/widgets/upcoming_ride_widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:navigation_history_observer/navigation_history_observer.dart';
 
 class DriverHomePage extends StatelessWidget {
   const DriverHomePage({super.key});
