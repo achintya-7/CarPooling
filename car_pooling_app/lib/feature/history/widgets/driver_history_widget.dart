@@ -96,19 +96,28 @@ class RideHistoryWidget extends StatelessWidget {
                   p.phone,
                   style: const TextStyle(color: Colors.black87),
                 ),
-                trailing: p.email == ride.email
+                trailing: (p.email == ride.email)
+                    // * if the p.email is the driver 
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const Icon(Icons.local_taxi),
+                          // * if the p.email is not the current user, give him option to chat
                           if (p.email != AuthService().getCurrentUser()?.email)
-                            IconButton(onPressed: () {}, icon: const Icon(Icons.chat))
+                            IconButton(
+                              constraints: const BoxConstraints(),
+                              padding: EdgeInsets.zero,
+                              onPressed: () {}, icon: const Icon(Icons.chat))
                           else
                             const SizedBox.shrink(),
                         ],
                       )
+                    // * if the p.email is not the driver 
                     : (p.email != AuthService().getCurrentUser()?.email)
+                        // * if the p.email is not the current user, give him option to chat
                         ? IconButton(
+                            constraints: const BoxConstraints(),
+                            padding: EdgeInsets.zero,
                             onPressed: () {}, icon: const Icon(Icons.chat))
                         : const Icon(Icons.person),
               );
