@@ -18,12 +18,12 @@ type CreateRideReq struct {
 }
 
 type Passenger struct {
-	RequestID string  `json:"request_id" bson:"request_id,omitempty"`
-	Email     string  `json:"email" binding:"required"`
-	Phone     string  `json:"phone" binding:"required"`
-	Name      string  `json:"name" binding:"required"`
-	Origin    string  `json:"origin" binding:"required"`
-	OriginId string  `json:"origin_id" binding:"required"` // place id
+	RequestID string `json:"request_id" bson:"request_id,omitempty"`
+	Email     string `json:"email" binding:"required"`
+	Phone     string `json:"phone" binding:"required"`
+	Name      string `json:"name" binding:"required"`
+	Origin    string `json:"origin" binding:"required"`
+	OriginId  string `json:"origin_id" binding:"required"` // place id
 }
 
 type UpdateRideReq struct {
@@ -37,7 +37,7 @@ type CompleteRideReq struct {
 
 type SearchRideReq struct {
 	Origin  string `uri:"place_id" binding:"required"`
-	ToAmity int   `uri:"to_amity" binding:"required"` // 1 for true, 0 for false
+	ToAmity int    `uri:"to_amity" binding:"required"` // 1 for true, 0 for false
 }
 
 type CreateRideResp struct {
@@ -56,5 +56,10 @@ type CreateRideResp struct {
 	GeoJSON     primitive.M `json:"geojson"`
 	Requests    []string    `json:"requests"`
 	ToAmity     bool        `json:"to_amity" binding:"required"`
+	Started     bool        `json:"started" binding:"required"`
 	Gender      string      `json:"gender" binding:"required"`
+}
+
+type StartRideReq struct {
+	RideId string `uri:"ride_id" binding:"required"`
 }

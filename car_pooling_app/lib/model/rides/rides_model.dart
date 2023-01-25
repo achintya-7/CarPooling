@@ -23,6 +23,7 @@ class Ride with _$Ride {
     required List<PassengerRide> passengers,
     required bool complete,
     required String gender,
+    required bool started
   }) = _Ride;
 
 

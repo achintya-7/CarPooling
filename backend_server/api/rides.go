@@ -9,6 +9,7 @@ import (
 	"github.com/achintya-7/car_pooling_backend/mapsApi"
 	"github.com/achintya-7/car_pooling_backend/models"
 	"github.com/achintya-7/car_pooling_backend/token"
+	"github.com/achintya-7/car_pooling_backend/utils"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -442,6 +443,40 @@ func (server *Server) searchRide(c *gin.Context) {
 	c.JSON(http.StatusOK, result)
 }
 
+func (server Server) startRide(c *gin.Context) {
+	var req models.StartRideReq
+	
+	err := c.ShouldBindUri(&req) 
+	if err != nil {
+		c.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	authPayload := c.MustGet(authorizationPayloadKey).(*token.Payload)	
+
+	rideId, err := utils.StringToObjectId(req.RideId)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, errorResponse(err))
+		return
+	}
+
+	filter := bson.M{
+		"ride_id": rideId,	
+		"email": authPayload.Email,
+	}
+	update := bson.M{
+		"started": true,
+	}
+
+	_, err = server.collection.Ride.UpdateOne(c, filter, update)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "ride started"})
+}
+
 func (server *Server) cancelRidePassenger(c *gin.Context) {
 	var result models.CreateRideResp
 
@@ -517,3 +552,5 @@ func (server *Server) cancelRidePassenger(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"message": "ride cancelled successfully"})
 
 }
+
+

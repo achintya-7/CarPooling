@@ -22,6 +22,7 @@ _$_Ride _$$_RideFromJson(Map<String, dynamic> json) => _$_Ride(
           .toList(),
       complete: json['complete'] as bool,
       gender: json['gender'] as String,
+      started: json['started'] as bool,
     );
 
 Map<String, dynamic> _$$_RideToJson(_$_Ride instance) => <String, dynamic>{
@@ -38,4 +39,5 @@ Map<String, dynamic> _$$_RideToJson(_$_Ride instance) => <String, dynamic>{
       'passengers': instance.passengers,
       'complete': instance.complete,
       'gender': instance.gender,
+      'started': instance.started,
     };
