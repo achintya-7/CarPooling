@@ -1,44 +1,12 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
+import 'package:car_pooling_app/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
 import 'package:slide_action/slide_action.dart';
-
-// class GetCurrentRideFutureBuilder extends StatelessWidget {
-//   const GetCurrentRideFutureBuilder({
-//     Key? key,
-//     required this.rideController,
-//   }) : super(key: key);
-
-//   final RideController rideController;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder(
-//       future: rideController.getCurrentRide(),
-//       builder: (BuildContext context, AsyncSnapshot snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return const Center(
-//             child: SpinKitCubeGrid(
-//               color: Colors.grey,
-//             ),
-//           );
-//         }
-
-//         if (rideController.currentRide == null) {
-//           return const Center(
-//             child: Padding(
-//               padding: EdgeInsets.all(8.0),
-//               child: Text("No Upcoming Ride"),
-//             ),
-//           );
-//         }
-
-//         return RideInfoWidget(rideController: rideController);
-//       },
-//     );
-//   }
-// }
 
 class RideInfoWidget extends StatelessWidget {
   const RideInfoWidget({
@@ -50,6 +18,7 @@ class RideInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint(ride.started.toString());
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ListTileTheme(
@@ -99,14 +68,50 @@ class RideInfoWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 6),
-              if (ride.started)
+              if (ride.started &&
+                  ride.email == AuthService().getCurrentUser()?.email)
+                Row(
+                  children: [
+                    Text(
+                      'Ride Started...',
+                      style: TextStyle(
+                        color: Colors.green[800],
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                        onPressed: () {
+                          debugPrint("Open Map");
+                        },
+                        icon: Icon(
+                          Icons.map_sharp,
+                          color: Colors.orange[800],
+                          size: 32,
+                        )),
+                  ],
+                )
+              else if (ride.started)
                 const Text(
                   'Ride Started...',
-                  style: TextStyle(color: Colors.green, fontSize: 24),
+                  style: TextStyle(
+                    color: Colors.green,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                  ),
                 )
               else if (ride.email == AuthService().getCurrentUser()?.email)
-                const SizedBox(height: 5),
-                const SlideToAcceptWidget()
+                SlideToAcceptWidget(rideId: ride.id)
+              else
+                const Text(
+                  'Ride Not Started...',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                  ),
+                )
             ],
           ),
           children: ride.passengers
@@ -131,9 +136,13 @@ class RideInfoWidget extends StatelessWidget {
 }
 
 class SlideToAcceptWidget extends StatelessWidget {
-  const SlideToAcceptWidget({
-    super.key,
-  });
+  SlideToAcceptWidget({
+    Key? key,
+    required this.rideId,
+  }) : super(key: key);
+
+  final String rideId;
+  final RideController rideController = Get.find<RideController>();
 
   @override
   Widget build(BuildContext context) {
@@ -182,10 +191,11 @@ class SlideToAcceptWidget extends StatelessWidget {
       },
       action: () async {
         // Async operation
-        await Future.delayed(
-          const Duration(seconds: 2),
-          () => debugPrint("Hello World"),
-        );
+        bool result = await rideController.startRide(rideId);
+
+        if (result == false) errorToast("Something went wrong");
+
+        rideController.getCurrentRide(false);
       },
     );
   }

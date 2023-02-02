@@ -75,7 +75,7 @@ func (server *Server) setupRoutes() {
 	authRoute.GET("/rides/passenger", server.getCurrentRidePassengers)
 	authRoute.GET("/rides/search/:place_id/:to_amity", server.searchRide)
 	authRoute.GET("/rides/cancel", server.cancelRidePassenger)
-	authRoute.GET("/rides/start", server.startRide)
+	authRoute.GET("/rides/start/:ride_id", server.startRide)
 
 	// * REQUESTS
 	authRoute.POST("/requests", server.createRequest)

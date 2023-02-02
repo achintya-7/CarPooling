@@ -461,11 +461,13 @@ func (server Server) startRide(c *gin.Context) {
 	}
 
 	filter := bson.M{
-		"ride_id": rideId,	
+		"_id": rideId,	
 		"email": authPayload.Email,
 	}
 	update := bson.M{
-		"started": true,
+		"$set": bson.M{
+			"started": true,
+		},
 	}
 
 	_, err = server.collection.Ride.UpdateOne(c, filter, update)

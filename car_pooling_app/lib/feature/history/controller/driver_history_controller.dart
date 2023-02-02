@@ -1,4 +1,3 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/http_service.dart';
@@ -29,7 +28,7 @@ class DriverHistoryController extends GetxController {
 
     if (response.statusCode == 200) {
       updateFrontEnd(ride);
-      rideController.getCurrentRide();
+      rideController.getCurrentRide(true);
       EasyLoading.showSuccess("Ride Completed");
       Get.offAndToNamed('/drivers/home');
     } else {
@@ -42,7 +41,7 @@ class DriverHistoryController extends GetxController {
     final response = await HttpService.deleteRequest("rides", null);
     if (response.statusCode == 200) {
       rides.remove(ride);
-      rideController.getCurrentRide();
+      rideController.getCurrentRide(true);
       EasyLoading.showInfo("Ride deleted");
       Get.offAndToNamed('/drivers/home');
     } else {

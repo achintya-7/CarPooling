@@ -14,7 +14,7 @@ class RideController extends GetxController {
 
   @override
   void onInit() {
-    getCurrentRide();
+    getCurrentRide(true);
     super.onInit();
   }
 
@@ -33,8 +33,8 @@ class RideController extends GetxController {
     }
   }
 
-  Future getCurrentRide() async {
-    toogleLoading();
+  Future getCurrentRide(bool loading) async {
+    if (loading) toogleLoading();
     final response = await HttpService.getRequest("rides/passenger");
     if (response.statusCode == 200) {
       currentRide.value = Ride.fromJson(response.body);
@@ -43,7 +43,7 @@ class RideController extends GetxController {
     } else {
       errorToast("Something went wrong");
     }
-    toogleLoading();
+    if (loading) toogleLoading();
   }
 
   Future searchRide(String origin, bool toAmity) async {
@@ -90,6 +90,15 @@ class RideController extends GetxController {
       errorToast("Something went wrong");
     }
     loadingRides.remove(ride.id);
+  }
+
+  Future<bool> startRide(String rideId) async {
+    final response = await HttpService.getRequest("rides/start/$rideId");
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   void toogleLoading() {

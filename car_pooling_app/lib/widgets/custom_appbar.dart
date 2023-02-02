@@ -24,7 +24,7 @@ PreferredSizeWidget customAppBarHome({required String title, required RideContro
               intensity: 1,
               boxShape: const NeumorphicBoxShape.circle()),
           onPressed: () {
-            rideController.getCurrentRide();
+            rideController.getCurrentRide(true);
           },
           child: const Icon(
             Icons.refresh,

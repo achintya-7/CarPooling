@@ -59,7 +59,7 @@ class DriverMapController extends GetxController {
     final response = await HttpService.postRequest("rides", jsonMap);
     if (response.statusCode == 200) {
       successBox("Ride Confirmed");
-      rideController.getCurrentRide();
+      rideController.getCurrentRide(true);
       Get.back();
       Get.offAndToNamed('/drivers/home');
     } else if (response.statusCode == 409) {
