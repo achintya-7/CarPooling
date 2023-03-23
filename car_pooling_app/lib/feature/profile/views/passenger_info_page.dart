@@ -1,5 +1,5 @@
 import 'package:car_pooling_app/feature/profile/controllers/profile_controller.dart';
-import 'package:car_pooling_app/model/Passenger/passenger_model.dart';
+import 'package:car_pooling_app/model/passenger/passenger_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/google_user_details.dart';

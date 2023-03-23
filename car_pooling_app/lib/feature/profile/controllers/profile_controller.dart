@@ -1,4 +1,4 @@
-import 'package:car_pooling_app/model/Passenger/passenger_model.dart';
+import 'package:car_pooling_app/model/passenger/passenger_model.dart';
 import 'package:car_pooling_app/service/http_model.dart';
 import 'package:car_pooling_app/service/http_service.dart';
 import 'package:flutter/material.dart';

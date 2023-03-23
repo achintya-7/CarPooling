@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 
-import 'package:car_pooling_app/model/Passenger/passenger_model.dart';
+import 'package:car_pooling_app/model/passenger/passenger_model.dart';
 import 'package:car_pooling_app/service/http_model.dart';
 import 'package:car_pooling_app/service/http_service.dart';
 import 'package:car_pooling_app/utils/utils.dart';

@@ -1,5 +1,5 @@
 import 'package:car_pooling_app/feature/profile/controllers/update_profile_controller.dart';
-import 'package:car_pooling_app/model/Passenger/passenger_model.dart';
+import 'package:car_pooling_app/model/passenger/passenger_model.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_text_field.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
