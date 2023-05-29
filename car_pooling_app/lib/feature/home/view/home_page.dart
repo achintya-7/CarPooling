@@ -9,8 +9,8 @@ import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_search_widget.dart';
 import 'package:car_pooling_app/widgets/drawer_passenger.dart';
 import 'package:car_pooling_app/widgets/upcoming_ride_widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
@@ -25,20 +25,11 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: customAppBarHome(title: 'Home', rideController: rideController),
       drawer: const CustomDrawer(),
-      floatingActionButton: NeumorphicFloatingActionButton(
-        style: NeumorphicStyle(
-          color: Colors.grey[200],
-          boxShape: const NeumorphicBoxShape.circle(),
-          depth: 8,
-          intensity: 1,
-        ),
+      floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed("/PtoD"),
-        child: Center(
-          child: NeumorphicIcon(
+        child: const Center(
+          child: Icon(
             Icons.local_taxi,
-            style: const NeumorphicStyle(
-              color: Colors.black,
-            ),
             size: 30,
           ),
         ),
@@ -48,9 +39,9 @@ class HomePage extends StatelessWidget {
           child: Column(
             children: [
               // TODO: add an image
-      
+
               const SizedBox(height: 20),
-      
+
               // * Search Widget
               Obx(
                 () => AnimatedSwitcher(
@@ -65,64 +56,60 @@ class HomePage extends StatelessWidget {
                       child: child),
                   child: apiController.searchToggle.value
                       ? CustomSearchWidget(
-                          typeAheadController: apiController.typeAheadController,
+                          typeAheadController:
+                              apiController.typeAheadController,
                           apiController: apiController,
                         )
                       : CustomSearchWidget2(
-                          typeAheadController: apiController.typeAheadController,
+                          typeAheadController:
+                              apiController.typeAheadController,
                           apiController: apiController),
                 ),
               ),
-      
+
               const SizedBox(height: 10),
-      
+
               // * Confirm Button
-              NeumorphicButton(
+              FilledButton.tonal(
                 onPressed: () async {
                   if (rideController.currentRide.value != null) {
                     neutralToast("You already have a ride");
                     return;
                   }
-      
+
                   if (apiController.placePredictionModel == null) {
                     neutralToast("Please select a destination");
                     return;
                   }
 
-     
                   rideController.searchRide(
                       apiController.placePredictionModel!.place_id,
                       apiController.searchToggle.value);
                   return;
                 },
-                style: buttonStyle4,
-                child: const Text("Search Rides", style: TextStyle(fontSize: 16)),
+                child:
+                    const Text("Search Rides", style: TextStyle(fontSize: 16)),
               ),
-      
+
               const SizedBox(height: 30),
-      
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+
+              const Padding(
+                padding: EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: NeumorphicText(
+                  child: Text(
                     "Upcoming Ride",
-                    style: const NeumorphicStyle(
-                      color: Colors.black,
-                      depth: 5,
-                      intensity: 1,
-                    ),
-                    textStyle: NeumorphicTextStyle(
+                    style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-      
+
               Padding(
                 padding: const EdgeInsets.all(8),
-                child: Neumorphic(
+                child: Container(
                   child: Container(
                       padding: const EdgeInsets.all(8.0),
                       child: Obx(() {
@@ -130,7 +117,7 @@ class HomePage extends StatelessWidget {
                           return const Center(
                               child: SpinKitCubeGrid(color: Colors.grey));
                         }
-      
+
                         if (rideController.currentRide.value == null) {
                           return const Center(
                               child: Padding(
@@ -142,15 +129,15 @@ class HomePage extends StatelessWidget {
                             ),
                           ));
                         }
-      
+
                         return RideInfoWidget(
                             ride: rideController.currentRide.value!);
                       })),
                 ),
               ),
-      
+
               const SizedBox(height: 20),
-      
+
               // * Search Ride List
               SearchRideListWidget(rideController: rideController)
             ],
@@ -201,7 +188,8 @@ class SearchRideListWidget extends StatelessWidget {
             itemCount: rideController.searchedRides.length,
             itemBuilder: (context, index) {
               final ride = rideController.searchedRides[index];
-              return RideSearchInfoWidget(ride: ride, rideController: rideController);
+              return RideSearchInfoWidget(
+                  ride: ride, rideController: rideController);
             },
           );
         }),
@@ -230,7 +218,6 @@ class RideSearchInfoWidget extends StatelessWidget {
           padding: const EdgeInsets.all(2.0),
           child: Container(
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-            
             foregroundDecoration: rideController.loadingRides.contains(ride.id)
                 ? BoxDecoration(
                     color: Colors.grey,
@@ -241,7 +228,8 @@ class RideSearchInfoWidget extends StatelessWidget {
             child: Card(
                 elevation: 4,
                 color: Colors.grey[200],
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -313,8 +301,8 @@ class RideSearchInfoWidget extends StatelessWidget {
                       RichText(
                         maxLines: 1,
                         text: TextSpan(
-                          style:
-                              const TextStyle(color: Colors.black, fontSize: 16),
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 16),
                           children: [
                             const WidgetSpan(
                                 child: Icon(
@@ -393,15 +381,16 @@ class RideSearchInfoWidget extends StatelessWidget {
                       // * Request Ride Button
                       Align(
                         alignment: Alignment.center,
-                        child: NeumorphicButton(
-                          style: buttonStyle4,
-                          onPressed: rideController.loadingRides.contains(ride.id)
-                              ? null
-                              : () => rideController.requestRide(
-                                origin: apiController.placePredictionModel?.description, 
-                                originId: apiController.placePredictionModel?.place_id, 
-                                ride: ride
-                              ),
+                        child: FilledButton.tonal(
+                          onPressed:
+                              rideController.loadingRides.contains(ride.id)
+                                  ? null
+                                  : () => rideController.requestRide(
+                                      origin: apiController
+                                          .placePredictionModel?.description,
+                                      originId: apiController
+                                          .placePredictionModel?.place_id,
+                                      ride: ride),
                           child: const Text("Request Ride"),
                         ),
                       )

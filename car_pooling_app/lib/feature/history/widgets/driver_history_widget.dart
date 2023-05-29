@@ -1,9 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:car_pooling_app/feature/history/controller/driver_history_controller.dart';
 import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RideHistoryWidget extends StatelessWidget {
@@ -83,8 +82,6 @@ class RideHistoryWidget extends StatelessWidget {
             trailing: ride.complete
                 ? null
                 : PopUpWidget(historyController: historyController, ride: ride),
-
-                
             children: ride.passengers.map((p) {
               return ListTile(
                 title: Text(
@@ -97,7 +94,7 @@ class RideHistoryWidget extends StatelessWidget {
                   style: const TextStyle(color: Colors.black87),
                 ),
                 trailing: (p.email == ride.email)
-                    // * if the p.email is the driver 
+                    // * if the p.email is the driver
                     ? Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -105,20 +102,22 @@ class RideHistoryWidget extends StatelessWidget {
                           // * if the p.email is not the current user, give him option to chat
                           if (p.email != AuthService().getCurrentUser()?.email)
                             IconButton(
-                              constraints: const BoxConstraints(),
-                              padding: EdgeInsets.zero,
-                              onPressed: () {}, icon: const Icon(Icons.chat))
+                                constraints: const BoxConstraints(),
+                                padding: EdgeInsets.zero,
+                                onPressed: () {},
+                                icon: const Icon(Icons.chat))
                           else
                             const SizedBox.shrink(),
                         ],
                       )
-                    // * if the p.email is not the driver 
+                    // * if the p.email is not the driver
                     : (p.email != AuthService().getCurrentUser()?.email)
                         // * if the p.email is not the current user, give him option to chat
                         ? IconButton(
                             constraints: const BoxConstraints(),
                             padding: EdgeInsets.zero,
-                            onPressed: () {}, icon: const Icon(Icons.chat))
+                            onPressed: () {},
+                            icon: const Icon(Icons.chat))
                         : const Icon(Icons.person),
               );
             }).toList(),
@@ -166,17 +165,13 @@ class PopUpWidget extends StatelessWidget {
               title: const Text("Delete Ride"),
               content: const Text("Are you sure you want to Delete this ride?"),
               actions: [
-                NeumorphicButton(
-                    style: NeumorphicStyle(
-                      color: Colors.red[300],
-                    ),
+                FilledButton.tonal(
                     onPressed: () {
                       historyController.deleteRide(ride);
                       Navigator.pop(context);
-                      
                     },
                     child: const Text("Yes")),
-                NeumorphicButton(
+                FilledButton.tonal(
                     onPressed: () => Navigator.pop(context),
                     child: const Text("No")),
               ],
@@ -195,16 +190,13 @@ class PopUpWidget extends StatelessWidget {
               content:
                   const Text("Are you sure you want to Complete this ride?"),
               actions: [
-                NeumorphicButton(
-                    style: NeumorphicStyle(
-                      color: Colors.green[300],
-                    ),
+                FilledButton.tonal(
                     onPressed: () {
                       historyController.completeRide(ride, context);
                       Navigator.pop(context);
                     },
                     child: const Text("Yes")),
-                NeumorphicButton(
+                FilledButton.tonal(
                     onPressed: () => Navigator.pop(context),
                     child: const Text("No")),
               ],

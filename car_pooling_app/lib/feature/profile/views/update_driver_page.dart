@@ -1,8 +1,7 @@
 import 'package:car_pooling_app/feature/driver/controllers/driver_profile_form_controller.dart';
-import 'package:car_pooling_app/model/driver/driver_model.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_text_field.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
@@ -47,7 +46,7 @@ class DriverForm extends StatelessWidget {
         CustomTextField(textController: seatsController, hintText: "Seats ( Including Yours )"),
         CustomTextField(textController: experienceController, hintText: "Experience ( In Months )"),
         const SizedBox(height: 20),
-        NeumorphicButton(
+        FilledButton.tonal(
           child: const Text("Update"),
           onPressed: () async {
             if (carController.text.isEmpty ||

@@ -1,7 +1,7 @@
 import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer2 extends StatelessWidget {
@@ -36,10 +36,7 @@ class CustomDrawer2 extends StatelessWidget {
             ),
           ),
           ListTile(
-            leading: NeumorphicIcon(
-              style: NeumorphicStyle(
-                color: Colors.grey[700],
-              ),
+            leading: const Icon(
               Icons.home,
               size: 30,
             ),
@@ -52,8 +49,10 @@ class CustomDrawer2 extends StatelessWidget {
             },
           ),
           DrawerListTile(
-              text: "Profile", route: '/drivers/profile', icon: Icons.person, drawerKey: drawerKey),
-
+              text: "Profile",
+              route: '/drivers/profile',
+              icon: Icons.person,
+              drawerKey: drawerKey),
           Obx(() {
             if (rideController.currentRide.value != null) {
               return DrawerListTile(
@@ -65,15 +64,14 @@ class CustomDrawer2 extends StatelessWidget {
               return const SizedBox();
             }
           }),
-
           DrawerListTile(
-              text: "History", route: '/drivers/history', icon: Icons.history, drawerKey: drawerKey),
+              text: "History",
+              route: '/drivers/history',
+              icon: Icons.history,
+              drawerKey: drawerKey),
           const Spacer(),
           ListTile(
-            leading: NeumorphicIcon(
-              style: NeumorphicStyle(
-                color: Colors.grey[700],
-              ),
+            leading: const Icon(
               Icons.logout,
               size: 30,
             ),
@@ -99,7 +97,6 @@ class DrawerListTile extends StatelessWidget {
     required this.route,
     required this.icon,
     required this.drawerKey,
-
   }) : super(key: key);
 
   final String text;
@@ -110,10 +107,7 @@ class DrawerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: NeumorphicIcon(
-        style: NeumorphicStyle(
-          color: Colors.grey[700],
-        ),
+      leading: Icon(
         icon,
         size: 30,
       ),

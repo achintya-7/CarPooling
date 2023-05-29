@@ -1,16 +1,16 @@
 import 'dart:ui';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
+
 import 'package:car_pooling_app/feature/map_feature/controllers/driver_map_controller.dart';
 import 'package:car_pooling_app/model/api/place_prediction_model.dart';
 import 'package:car_pooling_app/model/api/route_model.dart';
 import 'package:car_pooling_app/utils/constants.dart';
 import 'package:car_pooling_app/utils/utils.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:get/get.dart';
-import 'package:latlong2/latlong.dart';
 
 class DriverMapPage extends StatelessWidget {
   DriverMapPage({super.key});
@@ -61,11 +61,11 @@ class DriverMapPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Align(
                       alignment: Alignment.topLeft,
-                      child: NeumorphicBackButton(
-                        style: buttonStyle3,
+                      child: IconButton(
                         onPressed: () {
                           Get.back();
                         },
+                        icon: const Icon(Icons.arrow_back_ios),
                       ),
                     ),
                   ),
@@ -73,8 +73,7 @@ class DriverMapPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Align(
                       alignment: Alignment.bottomCenter,
-                      child: NeumorphicButton(
-                        style: buttonStyle2,
+                      child: FilledButton.tonal(
                         onPressed: () {
                           dialog(context);
                         },
@@ -162,20 +161,20 @@ class DriverMapPage extends StatelessWidget {
                 return;
               }
 
-              DatePicker.showDateTimePicker(
-                context,
-                showTitleActions: true,
-                minTime: DateTime.now(),
-                maxTime: DateTime.now().add(const Duration(hours: 24)),
-                onConfirm: (date) {
-                  routeController.confirmRide(
-                    timestamp: date.millisecondsSinceEpoch ~/ 1000, 
-                    price: int.parse(priceController.text), 
-                    placeiId: placePredictionModel.place_id
-                  );
-                },
-                currentTime: DateTime.now(),
-             );
+            //   DatePicker.showDateTimePicker(
+            //     context,
+            //     showTitleActions: true,
+            //     minTime: DateTime.now(),
+            //     maxTime: DateTime.now().add(const Duration(hours: 24)),
+            //     onConfirm: (date) {
+            //       routeController.confirmRide(
+            //         timestamp: date.millisecondsSinceEpoch ~/ 1000, 
+            //         price: int.parse(priceController.text), 
+            //         placeiId: placePredictionModel.place_id
+            //       );
+            //     },
+            //     currentTime: DateTime.now(),
+            //  );
              
           },
           btnOkColor: Colors.grey[300],

@@ -6,7 +6,7 @@ import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_search_widget.dart';
 import 'package:car_pooling_app/widgets/drawer_driver.dart';
 import 'package:car_pooling_app/widgets/upcoming_ride_widgets.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
@@ -24,20 +24,11 @@ class DriverHomePage extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       appBar: customAppBarWithAction(title: "Home Driver"),
       drawer: CustomDrawer2(drawerKey: scaffoldKeyDrawer),
-      floatingActionButton: NeumorphicFloatingActionButton(
-        style: NeumorphicStyle(
-          color: Colors.grey[200],
-          boxShape: const NeumorphicBoxShape.circle(),
-          depth: 8,
-          intensity: 1,
-        ),
+      floatingActionButton: FloatingActionButton(
         onPressed: () => Get.offNamed('DtoP'),
-        child: Center(
-          child: NeumorphicIcon(
+        child: const Center(
+          child: Icon(
             Icons.person,
-            style: const NeumorphicStyle(
-              color: Colors.black,
-            ),
             size: 30,
           ),
         ),
@@ -76,7 +67,7 @@ class DriverHomePage extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              NeumorphicButton(
+              FilledButton.tonal(
                 onPressed: () async {
                   if (rideController.currentRide.value != null) {
                     neutralToast("You already have a ride");
@@ -93,25 +84,20 @@ class DriverHomePage extends StatelessWidget {
                     "placePredictionModel": apiController.placePredictionModel
                   });
                 },
-                style: buttonStyle,
+
                 child:
                     const Text("Create Ride", style: TextStyle(fontSize: 16)),
               ),
 
               const SizedBox(height: 30),
 
-              Padding(
+              const Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: Alignment.centerLeft,
-                  child: NeumorphicText(
+                  child: Text(
                     "Upcoming Ride",
-                    style: const NeumorphicStyle(
-                      color: Colors.black,
-                      depth: 5,
-                      intensity: 1,
-                    ),
-                    textStyle: NeumorphicTextStyle(
+                    style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -121,7 +107,7 @@ class DriverHomePage extends StatelessWidget {
 
               Padding(
                 padding: const EdgeInsets.all(8),
-                child: Neumorphic(
+                child: Container(
                   child: Container(
                     padding: const EdgeInsets.all(8.0),
                     child: Obx(() {

@@ -1,11 +1,10 @@
 import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/feature/requests/controllers/driver_request_controller.dart';
 import 'package:car_pooling_app/model/requets/requests_model.dart';
-import 'package:car_pooling_app/utils/constants.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/upcoming_ride_widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +24,7 @@ class DriverRequestsPage extends StatelessWidget {
             // * Ride Info Widget
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Neumorphic(
+              child: Container(
                 child: Container(
                   padding: const EdgeInsets.all(8.0),
                   child: Obx(() {
@@ -120,7 +119,7 @@ class RequestsWidget extends StatelessWidget {
             color: Colors.grey[200],
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            child: Neumorphic(
+            child: Container(
               child: ListTile(
                 isThreeLine: true,
                 title: Row(
@@ -195,20 +194,12 @@ class RequestsWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        NeumorphicButton(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 13, vertical: 7),
-                            style: NeumorphicStyle(
-                                color: Colors.green[300], intensity: 1),
+                        FilledButton.tonal(
                             onPressed: () =>
                                 requestController.acceptRequest(request),
                             child: const Text("Accept",
                                 style: TextStyle(fontSize: 16))),
-                        NeumorphicButton(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 13, vertical: 7),
-                            style: NeumorphicStyle(
-                                color: Colors.red[300], intensity: 1),
+                        FilledButton.tonal(
                             onPressed: () =>
                                 requestController.rejectRequest(request),
                             child: const Text("Decline",

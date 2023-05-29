@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 
 class GoogleUserDetails extends StatelessWidget {
   const GoogleUserDetails({
@@ -13,16 +13,8 @@ class GoogleUserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      child: Neumorphic(
+      child: Container(
         padding: const EdgeInsets.all(20),
-        style: NeumorphicStyle(
-          shape: NeumorphicShape.concave,
-          boxShape: NeumorphicBoxShape.roundRect(
-            BorderRadius.circular(12),
-          ),
-          depth: 8,
-          lightSource: LightSource.topLeft,
-        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

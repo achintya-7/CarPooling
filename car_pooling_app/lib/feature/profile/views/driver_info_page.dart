@@ -6,7 +6,7 @@ import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/google_user_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DriverInfoPage extends StatelessWidget {
@@ -68,16 +68,9 @@ class DriverViewWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: SizedBox(
               width: double.infinity,
-              child: Neumorphic(
+              child: Container(
                 padding: const EdgeInsets.all(20),
-                style: NeumorphicStyle(
-                  shape: NeumorphicShape.concave,
-                  boxShape: NeumorphicBoxShape.roundRect(
-                    BorderRadius.circular(12),
-                  ),
-                  depth: 8,
-                  lightSource: LightSource.topLeft,
-                ),
+                
                 child: Column(mainAxisSize: MainAxisSize.min, children: [
                   const SizedBox(height: 10),
                   Row(
@@ -148,17 +141,8 @@ class DriverViewWidget extends StatelessWidget {
             closedShape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
             ),
-            closedBuilder: (context, action) => NeumorphicButton(
+            closedBuilder: (context, action) => FilledButton.tonal(
               onPressed: action,//=> Get.toNamed('drivers/update', arguments: driver),
-              style: NeumorphicStyle(
-                shape: NeumorphicShape.concave,
-                boxShape: NeumorphicBoxShape.roundRect(
-                  BorderRadius.circular(12),
-                ),
-                depth: 4,
-                intensity: 1,
-                lightSource: LightSource.topLeft,
-              ),
               child: const Text(
                 "Update Profile",
                 style: TextStyle(color: Colors.black, fontSize: 16),

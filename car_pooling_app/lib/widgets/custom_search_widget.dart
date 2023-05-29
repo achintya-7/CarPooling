@@ -1,6 +1,6 @@
 import 'package:car_pooling_app/feature/home/controllers/api_controller.dart';
 import 'package:car_pooling_app/model/api/place_prediction_model.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
 class CustomSearchWidget extends StatelessWidget {
@@ -41,7 +41,8 @@ class CustomSearchWidget extends StatelessWidget {
               style: const TextStyle(fontSize: 18),
             ),
             debounceDuration: const Duration(milliseconds: 500),
-            suggestionsCallback: (pattern) => apiController.getPredictions(pattern),
+            suggestionsCallback: (pattern) =>
+                apiController.getPredictions(pattern),
             suggestionsBoxDecoration: SuggestionsBoxDecoration(
               borderRadius: BorderRadius.circular(10),
               elevation: 8,
@@ -59,9 +60,12 @@ class CustomSearchWidget extends StatelessWidget {
                   0.5,
                 ),
                 style: ListTileStyle.drawer,
-                title: Text(suggestion!.description, maxLines: 2, style: const TextStyle(fontSize: 16),),
+                title: Text(
+                  suggestion!.description,
+                  maxLines: 2,
+                  style: const TextStyle(fontSize: 16),
+                ),
               );
-              
             },
             noItemsFoundBuilder: (context) => const SizedBox(),
             onSuggestionSelected: (suggestion) {
@@ -80,9 +84,7 @@ class CustomSearchWidget extends StatelessWidget {
         // * Static Text Field
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Neumorphic(
-            curve: Neumorphic.DEFAULT_CURVE,
-            style: NeumorphicStyle(depth: NeumorphicTheme.embossDepth(context)),
+          child: Container(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
             child: TextFormField(
               readOnly: true,
@@ -116,9 +118,7 @@ class CustomSearchWidget2 extends StatelessWidget {
         // * Static Text Field
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Neumorphic(
-            curve: Neumorphic.DEFAULT_CURVE,
-            style: NeumorphicStyle(depth: NeumorphicTheme.embossDepth(context)),
+          child: Container(
             padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 18),
             child: TextFormField(
               readOnly: true,
@@ -161,7 +161,8 @@ class CustomSearchWidget2 extends StatelessWidget {
               style: const TextStyle(fontSize: 18),
             ),
             debounceDuration: const Duration(milliseconds: 500),
-            suggestionsCallback: (pattern) => apiController.getPredictions(pattern),
+            suggestionsCallback: (pattern) =>
+                apiController.getPredictions(pattern),
             suggestionsBoxDecoration: SuggestionsBoxDecoration(
               borderRadius: BorderRadius.circular(10),
               elevation: 8,

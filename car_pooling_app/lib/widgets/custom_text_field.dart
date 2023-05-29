@@ -1,5 +1,5 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -20,10 +20,8 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Neumorphic(
+    return Container(
       margin: const EdgeInsets.only(left: 8, right: 8, top: 5, bottom: 5),
-      curve: Neumorphic.DEFAULT_CURVE,
-      style: NeumorphicStyle(depth: NeumorphicTheme.embossDepth(context)),
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 18),
       child: TextField(
         inputFormatters: [

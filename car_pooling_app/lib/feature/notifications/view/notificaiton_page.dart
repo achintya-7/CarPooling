@@ -1,7 +1,7 @@
 import 'package:car_pooling_app/feature/notifications/controllers/notification_controller.dart';
 import 'package:car_pooling_app/model/notification/notification_model.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
@@ -14,7 +14,6 @@ class NotificationPage extends StatelessWidget {
 
     return Scaffold(
       appBar: customAppBar(title: "Notification"),
-
       body: FutureBuilder<List<NotificationModel>>(
         future: notificationController.getNotifications(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -63,17 +62,7 @@ class CustomNotificationListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Neumorphic(
-      style: NeumorphicStyle(
-        color: notifications.type == 3
-            ? Colors.redAccent[100]
-            : notifications.type == 1
-                ? Colors.greenAccent[100]
-                : Colors.grey[300],
-        intensity: 1,
-        depth: 2,
-        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(12)),
-      ),
+    return Container(
       child: ListTile(
         title: Text(notifications.content),
         subtitle: Text(

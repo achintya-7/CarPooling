@@ -1,6 +1,6 @@
 import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -29,21 +29,21 @@ class CustomDrawer extends StatelessWidget {
               backgroundImage: NetworkImage(user?.photoURL ?? ""),
             ),
           ),
-          const DrawerListTile(text: "Home", route: '/home', icon: (Icons.home)),
-
-          const DrawerListTile(text: "Profile", route: '/passengers', icon: Icons.person),
-          
-          const DrawerListTile(text: "Requests", route: '/passengers/requests', icon: Icons.info),
-
-          const DrawerListTile(text: "History", route: '/passengers/history', icon: Icons.history),
-
+          const DrawerListTile(
+              text: "Home", route: '/home', icon: (Icons.home)),
+          const DrawerListTile(
+              text: "Profile", route: '/passengers', icon: Icons.person),
+          const DrawerListTile(
+              text: "Requests",
+              route: '/passengers/requests',
+              icon: Icons.info),
+          const DrawerListTile(
+              text: "History",
+              route: '/passengers/history',
+              icon: Icons.history),
           const Spacer(),
-
           ListTile(
-            leading: NeumorphicIcon(
-              style: NeumorphicStyle(
-                color: Colors.grey[700],
-              ),
+            leading: const Icon(
               Icons.logout,
               size: 30,
             ),
@@ -77,10 +77,7 @@ class DrawerListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: NeumorphicIcon(
-        style: NeumorphicStyle(
-          color: Colors.grey[700],
-        ),
+      leading: Icon(
         icon,
         size: 30,
       ),

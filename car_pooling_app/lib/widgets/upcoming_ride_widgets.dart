@@ -4,7 +4,7 @@ import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:car_pooling_app/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:slide_action/slide_action.dart';
 

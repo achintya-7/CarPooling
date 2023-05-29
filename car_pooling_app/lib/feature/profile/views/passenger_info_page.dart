@@ -4,7 +4,7 @@ import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/google_user_details.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 
@@ -76,16 +76,9 @@ class ProfileViewWidget extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: SizedBox(
               width: double.infinity,
-              child: Neumorphic(
+              child: Container(
                 padding: const EdgeInsets.all(20),
-                style: NeumorphicStyle(
-                  shape: NeumorphicShape.concave,
-                  boxShape: NeumorphicBoxShape.roundRect(
-                    BorderRadius.circular(12),
-                  ),
-                  depth: 8,
-                  lightSource: LightSource.topLeft,
-                ),
+                
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -155,17 +148,9 @@ class ProfileViewWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          NeumorphicButton(
+          FilledButton.tonal(
             onPressed: () => Get.toNamed('passengers/update', arguments: passenger),
-            style: NeumorphicStyle(
-              shape: NeumorphicShape.concave,
-              boxShape: NeumorphicBoxShape.roundRect(
-                BorderRadius.circular(12),
-              ),
-              depth: 4,
-              intensity: 1,
-              lightSource: LightSource.topLeft,
-            ),
+            
             child: const Text(
               "Update Profile",
               style: TextStyle(color: Colors.black, fontSize: 16),

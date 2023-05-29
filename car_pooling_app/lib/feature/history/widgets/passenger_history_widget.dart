@@ -1,8 +1,7 @@
-import 'package:car_pooling_app/feature/history/controller/driver_history_controller.dart';
 import 'package:car_pooling_app/feature/history/controller/passenger_history_controller.dart';
 import 'package:car_pooling_app/model/rides/rides_model.dart';
 import 'package:car_pooling_app/service/auth_service.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RideHistoryWidgetPassenger extends StatelessWidget {
@@ -137,16 +136,14 @@ class PopUpWidget extends StatelessWidget {
               title: const Text("Cancel Ride"),
               content: ride.timestamp <= DateTime.now().millisecondsSinceEpoch ~/ 100 ? const Text("The Ride has already initiated, Are you sure you want to cancel the Ride") : const Text("Are you sure you want to Delete this ride?"),
               actions: [
-                NeumorphicButton(
-                    style: NeumorphicStyle(
-                      color: Colors.red[300],
-                    ),
+                FilledButton.tonal(
+  
                     onPressed: () {
                       
                       Navigator.pop(context);
                     },
                     child: const Text("Yes")),
-                NeumorphicButton(
+                FilledButton.tonal(
                     onPressed: () => Navigator.pop(context),
                     child: const Text("No")),
               ],

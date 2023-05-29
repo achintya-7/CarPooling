@@ -3,7 +3,7 @@ import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:car_pooling_app/utils/constants.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_text_field.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
@@ -53,7 +53,7 @@ class _PassengerInfoFormPageState extends State<PassengerInfoFormPage> {
                 hintText: 'Pincode',
                 size: 6,
                 keyboardTextType: TextInputType.number),
-            Neumorphic(
+            Container(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: DropdownButton(
@@ -71,8 +71,7 @@ class _PassengerInfoFormPageState extends State<PassengerInfoFormPage> {
             const SizedBox(
               height: 20,
             ),
-            NeumorphicButton(
-              style: buttonStyle,
+            FilledButton.tonal(
               onPressed: () {
                 if (_nameController.text.isEmpty ||
                     _phoneController.text.isEmpty ||

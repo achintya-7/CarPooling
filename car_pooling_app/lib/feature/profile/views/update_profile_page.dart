@@ -2,7 +2,7 @@ import 'package:car_pooling_app/feature/profile/controllers/update_profile_contr
 import 'package:car_pooling_app/model/passenger/passenger_model.dart';
 import 'package:car_pooling_app/widgets/custom_appbar.dart';
 import 'package:car_pooling_app/widgets/custom_text_field.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -54,7 +54,7 @@ class UpdateProfilePage extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              NeumorphicButton(
+              FilledButton.tonal(
                 onPressed: () async {
                   if (_nameController.text.isEmpty ||
                       _phoneController.text.isEmpty ||

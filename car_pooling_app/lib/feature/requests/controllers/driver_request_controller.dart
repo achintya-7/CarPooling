@@ -1,6 +1,5 @@
 import 'package:car_pooling_app/feature/home/controllers/ride_controller.dart';
 import 'package:car_pooling_app/model/requets/requests_model.dart';
-import 'package:car_pooling_app/service/auth_service.dart';
 import 'package:car_pooling_app/service/http_service.dart';
 import 'package:car_pooling_app/utils/utils.dart';
 import 'package:get/get.dart';
